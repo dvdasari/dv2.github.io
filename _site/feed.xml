@@ -1,14 +1,381 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Your awesome title</title>
+    <title>DV Dasari</title>
     <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
 </description>
-    <link>http://yourdomain.com/</link>
-    <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 29 May 2016 19:37:10 -0500</pubDate>
-    <lastBuildDate>Sun, 29 May 2016 19:37:10 -0500</lastBuildDate>
+    <link>http://dasari.me/</link>
+    <atom:link href="http://dasari.me/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 29 May 2016 21:13:12 -0500</pubDate>
+    <lastBuildDate>Sun, 29 May 2016 21:13:12 -0500</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Deploy Ruby On Rails 4 Application on Ubuntu 12.04 with Nginx and Passenger</title>
+        <description>&lt;p&gt;This is a step by step guide for deploying a Ruby on Rails 4 application to Ubuntu 12.04 using Nginx &amp;amp; Passenger.&lt;/p&gt;
+
+&lt;p&gt;Here we will deploy to Linux Virtual Servers in the Linode Cloud. The same steps can be followed to deploy to other VPS servers, like &lt;a href=&quot;https://www.digitalocean.com&quot;&gt;DigitalOcean&lt;/a&gt;, &lt;a href=&quot;http://www.dreamhost.com&quot;&gt;Dreamhost&lt;/a&gt; etc.&lt;/p&gt;
+
+&lt;p&gt;We will be using
+### Ubuntu 12.04
+### &lt;a href=&quot;http://nginx.com&quot;&gt;Nginx&lt;/a&gt;
+### &lt;a href=&quot;https://www.phusionpassenger.com&quot;&gt;Passenger&lt;/a&gt;
+### Ruby 2.1.0
+### Rails 4.0.2
+### MySql&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;h2 id=&quot;signup-to-linode&quot;&gt;Signup to Linode&lt;/h2&gt;
+&lt;p&gt;First &lt;a href=&quot;https://manager.linode.com/signup&quot;&gt;sign up&lt;/a&gt; for a Linode account if you do not have an account already.
+Then &lt;strong&gt;Add a Linode&lt;/strong&gt; and &lt;strong&gt;Select your plan&lt;/strong&gt; from one of the plans available&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://dasari.me/assets/linode_select_your_plan.png&quot; alt=&quot;Select your plan&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;you will have to select &lt;strong&gt;Payment Term&lt;/strong&gt; and &lt;strong&gt;Location&lt;/strong&gt; and &lt;strong&gt;Add this Linode!&lt;/strong&gt; and &lt;strong&gt;Complete Order&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;select-a-linux-distribution&quot;&gt;Select a Linux Distribution&lt;/h3&gt;
+&lt;p&gt;There are a lot of operating systems to choose from, but we will go with Ubuntu 12.04 LTS
+&lt;img src=&quot;http://dasari.me/assets/linode_rebuild_distribution.png&quot; alt=&quot;Rebuild distribution&quot; /&gt;
+Click &lt;strong&gt;Rebuild&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Now you have your Linode, but it is initially in a &lt;strong&gt;Powered Off&lt;/strong&gt; state. So Click on &lt;strong&gt;Boot&lt;/strong&gt; to boot your linode.
+&lt;img src=&quot;http://dasari.me/assets/linode_boot.png&quot; alt=&quot;Boot&quot; /&gt;
+Give it a few seconds to boot.&lt;/p&gt;
+
+&lt;h3 id=&quot;connecting-to-your-linode&quot;&gt;Connecting to your linode&lt;/h3&gt;
+&lt;p&gt;Click on the &lt;strong&gt;Remote Access&lt;/strong&gt; tab in your account and copy the IP address from the SSH Access field. This is the IP address of your linode.
+&lt;img src=&quot;http://dasari.me/assets/linode_remote_access.png&quot; alt=&quot;Remote access&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We will connect to our linode via SSH. &lt;br /&gt;
+Mac users can use Terminal or iTerm2&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh root@IPADDRESS
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If you get the below warning, type &lt;em&gt;yes&lt;/em&gt; and press Enter
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+[~]$ ssh root@IPADDRESS
+The authenticity of host &#39;IPADDRESS (IPADDRESS)&#39; can&#39;t be established.
+RSA key fingerprint is 1b:16:36:09:4b:95:5e:35:53:d2:c9:b1:65:cd:cc:51.
+Are you sure you want to continue connecting (yes/no)?
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;It will prompt to enter password, Enter the password you created for the &lt;em&gt;root&lt;/em&gt; user (while setting up the Linux distribution) and press Enter
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+[~]$ ssh root@IPADDRESS
+root@IPADDRESS&#39;s password:
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You are now logged into your linode via SSH.&lt;/p&gt;
+
+&lt;p&gt;The first thing we will do on our new server is create a user account to run our applications
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+sudo adduser user_name
+sudo adduser user_name sudo
+su user_name
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;setting-up-ssh-keys-to-login-without-having-to-enter-password-everytime&quot;&gt;Setting up SSH keys to login without having to enter password everytime&lt;/h3&gt;
+
+&lt;p&gt;If you never setup ssh keys before, google to find out how to setup ssh keys&lt;br /&gt;
+Once you have the keys set up, we will copy the public key from your computer to server&lt;/p&gt;
+
+&lt;p&gt;The public key on your computer is located in file &lt;em&gt;~/.ssh/id_rsa.pub&lt;/em&gt;&lt;br /&gt;
+We will copy this on to server file &lt;em&gt;~/.ssh/authorized_keys&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Most likely you will not have the .ssh folder on server, so lets create that first and then we will create file &lt;em&gt;authorized_keys&lt;/em&gt; and copy the public key there.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd ~
+mkdir .ssh
+cd .ssh
+touch authorized_keys
+vi authorized_keys
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;copy the contents of file ~/.ssh/id_rsa.pub to authorized_keys&lt;/p&gt;
+
+&lt;p&gt;Now logout of the server by typing
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+exit
+&lt;/code&gt;
+and log back in by typing
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+ssh user_name@IPADDRESS
+&lt;/code&gt;
+it should log you into the server without asking for the password.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;We have successfully&lt;/strong&gt; &lt;br /&gt;
+1. Created a Linode account&lt;br /&gt;
+2. Installed a Linux distribution&lt;br /&gt;
+3. Ssh’ed into the server as root user&lt;br /&gt;
+4. Created a user account&lt;br /&gt;
+5. Set up authentication via keys&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now we are all set to install the software required to deploy our app.&lt;/p&gt;
+
+&lt;h2 id=&quot;installing-ruby-on-server&quot;&gt;Installing Ruby on Server&lt;/h2&gt;
+
+&lt;p&gt;We will login as a regular user ‘user_name’ and not as the root user from here on.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;### installing dependenies for ruby
+sudo apt-get update
+sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev libcurl4-openssl-dev python-software-properties
+
+### installing rvm
+sudo apt-get install libgdbm-dev libncurses5-dev automake libtool bison libffi-dev
+curl -L https://get.rvm.io | bash -s stable
+source ~/.rvm/scripts/rvm
+rvm install 2.1.0
+rvm use 2.1.0 --default
+ruby -v
+
+### tell Rubygems to not install documentation
+echo &quot;gem: --no-ri --no-rdoc&quot; &amp;gt; ~/.gemrc
+gem install bundler
+
+### install javascript runtime
+sudo add-apt-repository ppa:chris-lea/node.js
+sudo apt-get update
+sudo apt-get install nodejs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;installing-nginx-and-passenger-on-server&quot;&gt;Installing Nginx and Passenger on Server&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# Install Phusion&#39;s PGP key to verify packages
+gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
+gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add -
+
+# Add HTTPS support to APT
+sudo apt-get install apt-transport-https
+
+# Add the passenger repository
+sudo sh -c &quot;echo &#39;deb https://oss-binaries.phusionpassenger.com/apt/passenger precise main&#39; &amp;gt;&amp;gt; /etc/apt/sources.list.d/passenger.list&quot;
+sudo chown root: /etc/apt/sources.list.d/passenger.list
+sudo chmod 600 /etc/apt/sources.list.d/passenger.list
+sudo apt-get update
+
+# Install nginx and passenger
+sudo apt-get install nginx-full passenger
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now that Nginx and Passenger are installed, we can manage the Nginx webserver by using the service commands
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+sudo service nginx start
+sudo service nginx stop
+sudo service nginx restart
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Next, we need to update the Nginx configuration to update passenger_root, passenger_ruby&lt;/p&gt;
+
+&lt;p&gt;To find passenger_root
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+user_name@linode:~$ passenger-config --root
+/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;To find passenger_ruby
+```
+user_name@linode:~$ passenger-config –ruby-command
+passenger-config was invoked through the following Ruby interpreter:
+  Command: /home/user_name/.rvm/gems/ruby-2.1.0/wrappers/ruby
+  Version: ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]
+  To use in Apache: PassengerRuby /home/user_name/.rvm/gems/ruby-2.1.0/wrappers/ruby
+  To use in Nginx : passenger_ruby /home/user_name/.rvm/gems/ruby-2.1.0/wrappers/ruby
+  To use with Standalone: /home/user_name/.rvm/gems/ruby-2.1.0/wrappers/ruby /usr/bin/passenger start&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+Open file /etc/nginx/nginx.conf and uncomment and set passenger_root, passenger_ruby
+``` ruby /etc/nginx/nginx.conf
+##
+# Phusion Passenger
+##
+# Uncomment it if you installed ruby-passenger or ruby-passenger-enterprise
+##
+
+passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
+passenger_ruby /home/user_name/.rvm/gems/ruby-2.1.0/wrappers/ruby
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Update the file /etc/nginx/sites-enabled/default to have the below content
+``` ruby /etc/nginx/sites-enabled/default
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server ipv6only=on;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    server_name your_domain_name.com;
+    passenger_enabled on;
+    rails_env production;
+    root /home/user_name/myapp/current/public;
+
+    error_page 500 502 503 504  /50x.html;
+    location = /50.x.html {
+        root html;
+    } } ```
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;installing-mysql-on-server&quot;&gt;Installing MySql on Server&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;apt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;libmysqlclient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;create-a-new-ruby-on-rails-application-on-your-local-boxcomputer&quot;&gt;Create a new Ruby on Rails application on your local box/computer&lt;/h2&gt;
+
+&lt;p&gt;Install the latest ruby version 2.1.0 via rvm&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;rvm&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Install the latest rails version 4.0.2
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby
+gem install rails
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Create a new rails app with mysql database
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby
+rails new myapp -d=mysql
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Lets create a controller and setup routes for root path
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby
+rails g controller Pages index
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Update config/routes.rb
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby config/routes.rb
+Myapp::Application.routes.draw do
+  root to: &#39;pages#index&#39;
+end
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Update Gemfile to add the gems needed for Capistrano
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby Gemfile
+gem &#39;capistrano&#39;
+gem &#39;capistrano-bundler&#39;
+gem &#39;capistrano-rails&#39;
+gem &#39;capistrano-rvm&#39;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Modify config/database.yml to look like below
+``` ruby config/database.yml
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: myapp_development
+  pool: 5
+  username: root
+  password:
+  socket: /tmp/mysql.sock&lt;/p&gt;
+
+&lt;p&gt;test:
+  adapter: mysql2
+  encoding: utf8
+  database: myapp_test
+  pool: 5
+  username: root
+  password:
+  socket: /tmp/mysql.sock&lt;/p&gt;
+
+&lt;p&gt;production:
+  adapter: mysql2
+  encoding: utf8
+  database: myapp_production
+  pool: 5
+  username: root
+  password:
+```&lt;/p&gt;
+
+&lt;p&gt;Bundle and create files needed for Capistrano
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby On command line
+bundle --binstubs
+cap install STAGES=production
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Modify Capfile to look as below
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby Capfile
+require &#39;capistrano/setup&#39;
+require &#39;capistrano/deploy&#39;
+require &#39;capistrano/rvm&#39;
+require &#39;capistrano/bundler&#39;
+require &#39;capistrano/rails&#39;
+set :rvm_type, :user
+set :rvm_ruby_version, &#39;2.1.0&#39;
+Dir.glob(&#39;lib/capistrano/tasks/*.cap&#39;).each { |r| import r }
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Modify config/deploy.rb to look as below&lt;br /&gt;
+&lt;em&gt;update repo_url below with the correct github repo url&lt;/em&gt;
+``` ruby config/deploy.rb
+lock ‘3.1.0’&lt;/p&gt;
+
+&lt;p&gt;set :application, ‘myapp’
+set :repo_url, ‘git@github.com:github_user_name/myapp.git’
+set :deploy_to, ‘/home/user_name/myapp’
+# set :linked_files, %w{config/database.yml}
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+namespace :deploy do&lt;/p&gt;
+
+&lt;p&gt;desc ‘Restart application’
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute :touch, release_path.join(‘tmp/restart.txt’)
+    end
+  end&lt;/p&gt;
+
+&lt;p&gt;after :finishing, ‘deploy:cleanup’
+end
+```&lt;/p&gt;
+
+&lt;p&gt;Modify config/deploy/production.rb to look as below
+``` ruby config/deploy/production.rb
+role :app, %w{user_name@IPADDRESS}
+role :web, %w{user_name@IPADDRESS}
+role :db,  %w{user_name@IPADDRESS}&lt;/p&gt;
+
+&lt;p&gt;set :stage, :production&lt;/p&gt;
+
+&lt;p&gt;server ‘IPADDRESS’, user: ‘user_name’, roles: %w{web app}, my_property: :my_value
+```&lt;/p&gt;
+
+&lt;p&gt;Create database on server
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby
+mysql -uroot -p
+Enter password: (enter password you entered when you installed mysql)
+mysql&amp;gt; CREATE DATABASE myapp_production;
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Deploying app on server
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby
+cap production deploy
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Now we have completed everything to deploy our Rails app on a Linux Virtual Server.&lt;/p&gt;
+
+&lt;p&gt;Open browser and type your domain name or IPADDRESS. You should see the below page&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://dasari.me/assets/linode_deploy_home_page.png&quot; alt=&quot;Deploy home page&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;That is all we have to do to deploy a Ruby on Rails application to run on Ubuntu 12.04.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 26 Jan 2014 21:13:01 -0600</pubDate>
+        <link>http://dasari.me/ruby/rails/nginx/ubuntu/2014/01/26/deploy-ruby-on-rails-to-linode-on-ubuntu-12-dot-04.html</link>
+        <guid isPermaLink="true">http://dasari.me/ruby/rails/nginx/ubuntu/2014/01/26/deploy-ruby-on-rails-to-linode-on-ubuntu-12-dot-04.html</guid>
+        
+        
+        <category>ruby</category>
+        
+        <category>rails</category>
+        
+        <category>nginx</category>
+        
+        <category>ubuntu</category>
+        
+      </item>
     
       <item>
         <title>Welcome to Jekyll!</title>
@@ -28,8 +395,8 @@
 
 </description>
         <pubDate>Sun, 29 Jan 2012 18:35:03 -0600</pubDate>
-        <link>http://yourdomain.com/jekyll/update/2012/01/29/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://yourdomain.com/jekyll/update/2012/01/29/welcome-to-jekyll.html</guid>
+        <link>http://dasari.me/jekyll/update/2012/01/29/welcome-to-jekyll.html</link>
+        <guid isPermaLink="true">http://dasari.me/jekyll/update/2012/01/29/welcome-to-jekyll.html</guid>
         
         
         <category>jekyll</category>
