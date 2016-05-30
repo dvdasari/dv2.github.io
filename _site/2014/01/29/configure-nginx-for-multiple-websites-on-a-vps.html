@@ -74,8 +74,6 @@ domain1.com<br />
 domain2.com<br />
 domain3.com</p>
 
-<!-- more -->
-
 <p>First we will setup our DNS records for each of the domains. Here is how they look.
 <img src="http://localhost:4000/assets/nginx_domain1.png" alt="Nginx Domain" />
 <img src="http://localhost:4000/assets/nginx_domain2.png" alt="Nginx Domain" />
@@ -83,109 +81,99 @@ domain3.com</p>
 
 <p>I have shown how to deploy a Ruby on Rails app in my previous post - <a href="/2014/01/26/deploy-ruby-on-rails-to-linode-on-ubuntu-12-dot-04/">Deploy Ruby on Rails 4 Application on Ubuntu 12.04 With Nginx and Passenger</a></p>
 
-<p>I have deployed 3 apps for each domain and they are in the below paths: <br />
-/home/user_name/domain1<br />
-/home/user_name/domain2<br />
-/home/user_name/domain3</p>
+<p>I have deployed 3 apps for each domain and they are in the below paths: <br /></p>
 
-<p>On the server, Nginx has a <em>default</em> configuration file at /etc/nginx/sites-available
-<code class="highlighter-rouge">ruby
-root@user_name:/etc/nginx/sites-available$ ls -l
--rw-r--r-- 1 root root 356 Jan 28 05:29 default
-</code></p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="sr">/home/use</span><span class="n">r_name</span><span class="o">/</span><span class="n">domain1</span>  
+<span class="sr">/home/use</span><span class="n">r_name</span><span class="o">/</span><span class="n">domain2</span>  
+<span class="sr">/home/use</span><span class="n">r_name</span><span class="o">/</span><span class="n">domain3</span>  </code></pre></figure>
 
-<p>and a symlink to this file at /etc/nginx/sites-enabled
-<code class="highlighter-rouge">ruby
-root@user_name:/etc/nginx/sites-enabled$ ll
-lrwxrwxrwx 1 root root   34 Jan 28 04:15 default -&gt; /etc/nginx/sites-available/default
-</code></p>
+<p>On the server, Nginx has a <em>default</em> configuration file at /etc/nginx/sites-available</p>
 
-<p>We will remove the symlink to the default file (which is equal to disabling the default configuration) and create 3 configuration files for the 3 domains
-<code class="highlighter-rouge">ruby
-root@user_name:/etc/nginx/sites-enabled$ rm default
-</code></p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="err">$</span> <span class="n">ls</span> <span class="o">-</span><span class="n">l</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">root</span> <span class="n">root</span> <span class="mi">356</span> <span class="no">Jan</span> <span class="mi">28</span> <span class="mo">05</span><span class="p">:</span><span class="mi">29</span> <span class="n">default</span></code></pre></figure>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="err">$</span> <span class="n">touch</span> <span class="n">domain1</span><span class="p">.</span><span class="nf">com</span>
+<p>and a symlink to this file at /etc/nginx/sites-enabled</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span><span class="err">$</span> <span class="n">ll</span>
+<span class="n">lrwxrwxrwx</span> <span class="mi">1</span> <span class="n">root</span> <span class="n">root</span>   <span class="mi">34</span> <span class="no">Jan</span> <span class="mi">28</span> <span class="mo">04</span><span class="p">:</span><span class="mi">15</span> <span class="n">default</span> <span class="o">-&gt;</span> <span class="sr">/etc/n</span><span class="n">ginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="o">/</span><span class="n">default</span></code></pre></figure>
+
+<p>We will remove the symlink to the default file (which is equal to disabling the default configuration) and create 3 configuration files for the 3 domains</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span><span class="err">$</span> <span class="n">rm</span> <span class="n">default</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="err">$</span> <span class="n">touch</span> <span class="n">domain1</span><span class="p">.</span><span class="nf">com</span>
 <span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="err">$</span> <span class="n">touch</span> <span class="n">domain2</span><span class="p">.</span><span class="nf">com</span>
-<span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="err">$</span> <span class="n">touch</span> <span class="n">domain3</span><span class="p">.</span><span class="nf">com</span>
-</code></pre>
-</div>
+<span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="err">$</span> <span class="n">touch</span> <span class="n">domain3</span><span class="p">.</span><span class="nf">com</span></code></pre></figure>
 
-<p>Now lets create symlinks for these files in /etc/nginx/sites-enabled
-``` ruby
-root@user_name:/etc/nginx/sites-enabled$ pwd
-/etc/nginx/sites-enabled</p>
+<p>Now lets create symlinks for these files in /etc/nginx/sites-enabled</p>
 
-<p>root@user_name:/etc/nginx/sites-enabled$ ln -s /etc/nginx/sites-available/domain1.com domain1.com
-root@user_name:/etc/nginx/sites-enabled$ ln -s /etc/nginx/sites-available/domain2.com domain2.com
-root@user_name:/etc/nginx/sites-enabled$ ln -s /etc/nginx/sites-available/domain3.com domain3.com</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span><span class="err">$</span> <span class="n">pwd</span>
+<span class="sr">/etc/n</span><span class="n">ginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span>
 
-<p>root@user_name:/etc/nginx/sites-enabled$ ls -l
-lrwxrwxrwx 1 root root 38 Jan 29 16:15 domain1.com -&gt; /etc/nginx/sites-available/domain1.com
-lrwxrwxrwx 1 root root 38 Jan 29 16:15 domain2.com -&gt; /etc/nginx/sites-available/domain2.com
-lrwxrwxrwx 1 root root 38 Jan 29 16:15 domain3.com -&gt; /etc/nginx/sites-available/domain3.com
-```</p>
+<span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span><span class="err">$</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="sr">/etc/n</span><span class="n">ginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="o">/</span><span class="n">domain1</span><span class="p">.</span><span class="nf">com</span> <span class="n">domain1</span><span class="p">.</span><span class="nf">com</span>
+<span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span><span class="err">$</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="sr">/etc/n</span><span class="n">ginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="o">/</span><span class="n">domain2</span><span class="p">.</span><span class="nf">com</span> <span class="n">domain2</span><span class="p">.</span><span class="nf">com</span>
+<span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span><span class="err">$</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="sr">/etc/n</span><span class="n">ginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="o">/</span><span class="n">domain3</span><span class="p">.</span><span class="nf">com</span> <span class="n">domain3</span><span class="p">.</span><span class="nf">com</span>
 
-<p>We will have the below configuration in these files
-``` ruby /etc/nginx/sites-available/domain1.com
-server {
-  listen 80;</p>
+<span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span><span class="err">$</span> <span class="n">ls</span> <span class="o">-</span><span class="n">l</span>
+<span class="n">lrwxrwxrwx</span> <span class="mi">1</span> <span class="n">root</span> <span class="n">root</span> <span class="mi">38</span> <span class="no">Jan</span> <span class="mi">29</span> <span class="mi">16</span><span class="p">:</span><span class="mi">15</span> <span class="n">domain1</span><span class="p">.</span><span class="nf">com</span> <span class="o">-&gt;</span> <span class="sr">/etc/n</span><span class="n">ginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="o">/</span><span class="n">domain1</span><span class="p">.</span><span class="nf">com</span>
+<span class="n">lrwxrwxrwx</span> <span class="mi">1</span> <span class="n">root</span> <span class="n">root</span> <span class="mi">38</span> <span class="no">Jan</span> <span class="mi">29</span> <span class="mi">16</span><span class="p">:</span><span class="mi">15</span> <span class="n">domain2</span><span class="p">.</span><span class="nf">com</span> <span class="o">-&gt;</span> <span class="sr">/etc/n</span><span class="n">ginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="o">/</span><span class="n">domain2</span><span class="p">.</span><span class="nf">com</span>
+<span class="n">lrwxrwxrwx</span> <span class="mi">1</span> <span class="n">root</span> <span class="n">root</span> <span class="mi">38</span> <span class="no">Jan</span> <span class="mi">29</span> <span class="mi">16</span><span class="p">:</span><span class="mi">15</span> <span class="n">domain3</span><span class="p">.</span><span class="nf">com</span> <span class="o">-&gt;</span> <span class="sr">/etc/n</span><span class="n">ginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="o">/</span><span class="n">domain3</span><span class="p">.</span><span class="nf">com</span></code></pre></figure>
 
-<p>server_name www.domain1.com domain1.com;
-  passenger_enabled on;
-  rails_env production;
-  root /home/user_name/domain1/current/public;</p>
+<p>We will have the below configuration in these files</p>
 
-<p>error_page 500 502 503 504  /50x.html;
-  location = /50.x.html {
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">server</span> <span class="p">{</span>
+  <span class="n">listen</span> <span class="mi">80</span><span class="p">;</span>
+
+  <span class="n">server_name</span> <span class="n">www</span><span class="p">.</span><span class="nf">domain1</span><span class="p">.</span><span class="nf">com</span> <span class="n">domain1</span><span class="p">.</span><span class="nf">com</span><span class="p">;</span>
+  <span class="n">passenger_enabled</span> <span class="n">on</span><span class="p">;</span>
+  <span class="n">rails_env</span> <span class="n">production</span><span class="p">;</span>
+  <span class="n">root</span> <span class="sr">/home/use</span><span class="n">r_name</span><span class="o">/</span><span class="n">domain1</span><span class="o">/</span><span class="n">current</span><span class="o">/</span><span class="kp">public</span><span class="p">;</span>
+
+  <span class="n">error_page</span> <span class="mi">500</span> <span class="mi">502</span> <span class="mi">503</span> <span class="mi">504</span>  <span class="o">/</span><span class="mi">50</span><span class="n">x</span><span class="p">.</span><span class="nf">html</span><span class="p">;</span>
+  <span class="n">location</span> <span class="o">=</span> <span class="sr">/50.x.html {
     root html;
   }
-}
-```</p>
+}</span></code></pre></figure>
 
-<p>``` ruby /etc/nginx/sites-available/domain2.com
-server {
-  listen 80;</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">server</span> <span class="p">{</span>
+  <span class="n">listen</span> <span class="mi">80</span><span class="p">;</span>
 
-<p>server_name www.domain2.com domain2.com;
-  passenger_enabled on;
-  rails_env production;
-  root /home/user_name/domain2/current/public;</p>
+  <span class="n">server_name</span> <span class="n">www</span><span class="p">.</span><span class="nf">domain2</span><span class="p">.</span><span class="nf">com</span> <span class="n">domain2</span><span class="p">.</span><span class="nf">com</span><span class="p">;</span>
+  <span class="n">passenger_enabled</span> <span class="n">on</span><span class="p">;</span>
+  <span class="n">rails_env</span> <span class="n">production</span><span class="p">;</span>
+  <span class="n">root</span> <span class="sr">/home/use</span><span class="n">r_name</span><span class="o">/</span><span class="n">domain2</span><span class="o">/</span><span class="n">current</span><span class="o">/</span><span class="kp">public</span><span class="p">;</span>
 
-<p>error_page 500 502 503 504  /50x.html;
-  location = /50.x.html {
+  <span class="n">error_page</span> <span class="mi">500</span> <span class="mi">502</span> <span class="mi">503</span> <span class="mi">504</span>  <span class="o">/</span><span class="mi">50</span><span class="n">x</span><span class="p">.</span><span class="nf">html</span><span class="p">;</span>
+  <span class="n">location</span> <span class="o">=</span> <span class="sr">/50.x.html {
     root html;
   }
-}
-```</p>
+}</span></code></pre></figure>
 
-<p>``` ruby /etc/nginx/sites-available/domain3.com
-server {
-  listen 80;</p>
+<p>create <code class="highlighter-rouge">/etc/nginx/sites-available/domain3.com</code></p>
 
-<p>server_name www.domain3.com domain3.com;
-  passenger_enabled on;
-  rails_env production;
-  root /home/user_name/domain3/current/public;</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">server</span> <span class="p">{</span>
+  <span class="n">listen</span> <span class="mi">80</span><span class="p">;</span>
 
-<p>error_page 500 502 503 504  /50x.html;
-  location = /50.x.html {
+  <span class="n">server_name</span> <span class="n">www</span><span class="p">.</span><span class="nf">domain3</span><span class="p">.</span><span class="nf">com</span> <span class="n">domain3</span><span class="p">.</span><span class="nf">com</span><span class="p">;</span>
+  <span class="n">passenger_enabled</span> <span class="n">on</span><span class="p">;</span>
+  <span class="n">rails_env</span> <span class="n">production</span><span class="p">;</span>
+  <span class="n">root</span> <span class="sr">/home/use</span><span class="n">r_name</span><span class="o">/</span><span class="n">domain3</span><span class="o">/</span><span class="n">current</span><span class="o">/</span><span class="kp">public</span><span class="p">;</span>
+
+  <span class="n">error_page</span> <span class="mi">500</span> <span class="mi">502</span> <span class="mi">503</span> <span class="mi">504</span>  <span class="o">/</span><span class="mi">50</span><span class="n">x</span><span class="p">.</span><span class="nf">html</span><span class="p">;</span>
+  <span class="n">location</span> <span class="o">=</span> <span class="sr">/50.x.html {
     root html;
   }
-}
-```</p>
+}</span></code></pre></figure>
 
-<p>Restart NGINX
-<code class="highlighter-rouge">ruby
-sudo service nginx restart
-</code></p>
+<p>Restart NGINX</p>
 
-<p>To verify if all the configurations are correct, run <em>sudo nginx -t</em>
-<code class="highlighter-rouge">ruby
-root@user_name:/etc/nginx/sites-enabled$ sudo nginx -t
-nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-nginx: configuration file /etc/nginx/nginx.conf test is successful
-</code></p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">sudo</span> <span class="n">service</span> <span class="n">nginx</span> <span class="n">restart</span></code></pre></figure>
+
+<p>To verify if all the configurations are correct, run <em>sudo nginx -t</em></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span><span class="err">$</span> <span class="n">sudo</span> <span class="n">nginx</span> <span class="o">-</span><span class="n">t</span>
+<span class="ss">nginx: </span><span class="n">the</span> <span class="n">configuration</span> <span class="n">file</span> <span class="sr">/etc/n</span><span class="n">ginx</span><span class="o">/</span><span class="n">nginx</span><span class="p">.</span><span class="nf">conf</span> <span class="n">syntax</span> <span class="n">is</span> <span class="n">ok</span>
+<span class="ss">nginx: </span><span class="n">configuration</span> <span class="n">file</span> <span class="sr">/etc/n</span><span class="n">ginx</span><span class="o">/</span><span class="n">nginx</span><span class="p">.</span><span class="nf">conf</span> <span class="nb">test</span> <span class="n">is</span> <span class="n">successful</span></code></pre></figure>
 
 <p>That is all we have to do.</p>
 
@@ -195,17 +183,15 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 1. Verify if all the configurations are correct by running <em>sudo nginx -t</em> <br />
 2. Check NGINX log files at <em>/var/log/nginx/</em></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span><span class="err">$</span> <span class="n">sudo</span> <span class="n">nginx</span> <span class="o">-</span><span class="n">t</span>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span><span class="err">$</span> <span class="n">sudo</span> <span class="n">nginx</span> <span class="o">-</span><span class="n">t</span>
 <span class="ss">nginx: </span><span class="n">the</span> <span class="n">configuration</span> <span class="n">file</span> <span class="sr">/etc/n</span><span class="n">ginx</span><span class="o">/</span><span class="n">nginx</span><span class="p">.</span><span class="nf">conf</span> <span class="n">syntax</span> <span class="n">is</span> <span class="n">ok</span>
-<span class="ss">nginx: </span><span class="n">configuration</span> <span class="n">file</span> <span class="sr">/etc/n</span><span class="n">ginx</span><span class="o">/</span><span class="n">nginx</span><span class="p">.</span><span class="nf">conf</span> <span class="nb">test</span> <span class="n">is</span> <span class="n">successful</span>
-</code></pre>
-</div>
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span><span class="err">$</span> <span class="n">cd</span> <span class="sr">/var/</span><span class="n">log</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span>
+<span class="ss">nginx: </span><span class="n">configuration</span> <span class="n">file</span> <span class="sr">/etc/n</span><span class="n">ginx</span><span class="o">/</span><span class="n">nginx</span><span class="p">.</span><span class="nf">conf</span> <span class="nb">test</span> <span class="n">is</span> <span class="n">successful</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span><span class="err">$</span> <span class="n">cd</span> <span class="sr">/var/</span><span class="n">log</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span>
 <span class="n">root</span><span class="vi">@user_name</span><span class="ss">:/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">nginx</span><span class="err">$</span> <span class="n">ll</span>
 <span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span>  <span class="mi">1</span> <span class="n">root</span> <span class="n">root</span>  <span class="mi">9838</span> <span class="no">Jan</span> <span class="mi">29</span> <span class="mi">15</span><span class="p">:</span><span class="mi">30</span> <span class="n">access</span><span class="p">.</span><span class="nf">log</span>
-<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span>  <span class="mi">1</span> <span class="n">root</span> <span class="n">root</span> <span class="mi">17762</span> <span class="no">Jan</span> <span class="mi">29</span> <span class="mi">16</span><span class="p">:</span><span class="mi">38</span> <span class="n">error</span><span class="p">.</span><span class="nf">log</span>
-</code></pre>
-</div>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span>  <span class="mi">1</span> <span class="n">root</span> <span class="n">root</span> <span class="mi">17762</span> <span class="no">Jan</span> <span class="mi">29</span> <span class="mi">16</span><span class="p">:</span><span class="mi">38</span> <span class="n">error</span><span class="p">.</span><span class="nf">log</span></code></pre></figure>
+
 
   </div>
 

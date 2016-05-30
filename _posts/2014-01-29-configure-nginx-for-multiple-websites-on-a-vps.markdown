@@ -20,8 +20,6 @@ domain1.com
 domain2.com  
 domain3.com  
 
-<!-- more -->
-
 First we will setup our DNS records for each of the domains. Here is how they look.
 ![Nginx Domain]({{ site.url }}/assets/nginx_domain1.png)
 ![Nginx Domain]({{ site.url }}/assets/nginx_domain2.png)
@@ -30,35 +28,37 @@ First we will setup our DNS records for each of the domains. Here is how they lo
 I have shown how to deploy a Ruby on Rails app in my previous post - [Deploy Ruby on Rails 4 Application on Ubuntu 12.04 With Nginx and Passenger](/2014/01/26/deploy-ruby-on-rails-to-linode-on-ubuntu-12-dot-04/)
 
 I have deployed 3 apps for each domain and they are in the below paths: <br />
+{% highlight ruby %}
 /home/user_name/domain1  
 /home/user_name/domain2  
 /home/user_name/domain3  
+{% endhighlight %}
 
 On the server, Nginx has a *default* configuration file at /etc/nginx/sites-available
-``` ruby
+{% highlight ruby %}
 root@user_name:/etc/nginx/sites-available$ ls -l
 -rw-r--r-- 1 root root 356 Jan 28 05:29 default
-```
+{% endhighlight %}
 
 and a symlink to this file at /etc/nginx/sites-enabled
-``` ruby
+{% highlight ruby %}
 root@user_name:/etc/nginx/sites-enabled$ ll
 lrwxrwxrwx 1 root root   34 Jan 28 04:15 default -> /etc/nginx/sites-available/default
-```
+{% endhighlight %}
 
 We will remove the symlink to the default file (which is equal to disabling the default configuration) and create 3 configuration files for the 3 domains
-``` ruby
+{% highlight ruby %}
 root@user_name:/etc/nginx/sites-enabled$ rm default
-```
+{% endhighlight %}
 
-``` ruby
+{% highlight ruby %}
 root@user_name:/etc/nginx/sites-available$ touch domain1.com
 root@user_name:/etc/nginx/sites-available$ touch domain2.com
 root@user_name:/etc/nginx/sites-available$ touch domain3.com
-```
+{% endhighlight %}
 
 Now lets create symlinks for these files in /etc/nginx/sites-enabled
-``` ruby
+{% highlight ruby %}
 root@user_name:/etc/nginx/sites-enabled$ pwd
 /etc/nginx/sites-enabled
 
@@ -70,10 +70,10 @@ root@user_name:/etc/nginx/sites-enabled$ ls -l
 lrwxrwxrwx 1 root root 38 Jan 29 16:15 domain1.com -> /etc/nginx/sites-available/domain1.com
 lrwxrwxrwx 1 root root 38 Jan 29 16:15 domain2.com -> /etc/nginx/sites-available/domain2.com
 lrwxrwxrwx 1 root root 38 Jan 29 16:15 domain3.com -> /etc/nginx/sites-available/domain3.com
-```
+{% endhighlight %}
 
 We will have the below configuration in these files
-``` ruby /etc/nginx/sites-available/domain1.com
+{% highlight ruby %}
 server {
   listen 80;
 
@@ -87,9 +87,9 @@ server {
     root html;
   }
 }
-```
+{% endhighlight %}
 
-``` ruby /etc/nginx/sites-available/domain2.com
+{% highlight ruby %}
 server {
   listen 80;
 
@@ -103,9 +103,10 @@ server {
     root html;
   }
 }
-```
+{% endhighlight %}
 
-``` ruby /etc/nginx/sites-available/domain3.com
+create `/etc/nginx/sites-available/domain3.com`
+{% highlight ruby %}
 server {
   listen 80;
 
@@ -119,19 +120,19 @@ server {
     root html;
   }
 }
-```
+{% endhighlight %}
 
 Restart NGINX
-``` ruby
+{% highlight ruby %}
 sudo service nginx restart
-```
+{% endhighlight %}
 
 To verify if all the configurations are correct, run *sudo nginx -t*
-``` ruby
+{% highlight ruby %}
 root@user_name:/etc/nginx/sites-enabled$ sudo nginx -t
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
-```
+{% endhighlight %}
 
 That is all we have to do.
 
@@ -142,14 +143,15 @@ Open a browser and check for domain1.com, domain2.com, domain3.com. They should 
 1. Verify if all the configurations are correct by running *sudo nginx -t* <br>
 2. Check NGINX log files at */var/log/nginx/*
 
-``` ruby
+{% highlight ruby %}
 root@user_name:/etc/nginx/sites-enabled$ sudo nginx -t
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
-```
-``` ruby
+{% endhighlight %}
+
+{% highlight ruby %}
 root@user_name:/etc/nginx/sites-enabled$ cd /var/log/nginx/
 root@user_name:/var/log/nginx$ ll
 -rw-r--r--  1 root root  9838 Jan 29 15:30 access.log
 -rw-r--r--  1 root root 17762 Jan 29 16:38 error.log
-```
+{% endhighlight %}
