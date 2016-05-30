@@ -3,7 +3,6 @@ layout: post
 title: "Deploy Ruby On Rails 4 Application on Ubuntu 12.04 with Nginx and Passenger"
 date: 2014-01-26 21:13:01 -0600
 comments: true
-categories: ruby rails nginx ubuntu
 keywords: ruby on rails 4, nginx, passenger
 description: How to deploy Ruby On Rails 4 Application on Ubuntu 12.04 with Nginx and Passenger
 ---

@@ -10,8 +10,8 @@
   <meta name="description" content="This is a step by step guide for deploying a Ruby on Rails 4 application to Ubuntu 12.04 using Nginx &amp; Passenger.">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://dasari.me/ruby/rails/nginx/ubuntu/2014/01/26/deploy-ruby-on-rails-to-linode-on-ubuntu-12-dot-04.html">
-  <link rel="alternate" type="application/rss+xml" title="DV Dasari" href="http://dasari.me/feed.xml">
+  <link rel="canonical" href="http://localhost:4000/ruby/rails/nginx/ubuntu/2014/01/26/deploy-ruby-on-rails-to-linode-on-ubuntu-12-dot-04.html">
+  <link rel="alternate" type="application/rss+xml" title="DV Dasari" href="http://localhost:4000/feed.xml">
 </head>
 
 
@@ -80,22 +80,22 @@
 <p>First <a href="https://manager.linode.com/signup">sign up</a> for a Linode account if you do not have an account already.
 Then <strong>Add a Linode</strong> and <strong>Select your plan</strong> from one of the plans available</p>
 
-<p><img src="http://dasari.me/assets/linode_select_your_plan.png" alt="Select your plan" /></p>
+<p><img src="http://localhost:4000/assets/linode_select_your_plan.png" alt="Select your plan" /></p>
 
 <p>you will have to select <strong>Payment Term</strong> and <strong>Location</strong> and <strong>Add this Linode!</strong> and <strong>Complete Order</strong></p>
 
 <h3 id="select-a-linux-distribution">Select a Linux Distribution</h3>
 <p>There are a lot of operating systems to choose from, but we will go with Ubuntu 12.04 LTS
-<img src="http://dasari.me/assets/linode_rebuild_distribution.png" alt="Rebuild distribution" />
+<img src="http://localhost:4000/assets/linode_rebuild_distribution.png" alt="Rebuild distribution" />
 Click <strong>Rebuild</strong></p>
 
 <p>Now you have your Linode, but it is initially in a <strong>Powered Off</strong> state. So Click on <strong>Boot</strong> to boot your linode.
-<img src="http://dasari.me/assets/linode_boot.png" alt="Boot" />
+<img src="http://localhost:4000/assets/linode_boot.png" alt="Boot" />
 Give it a few seconds to boot.</p>
 
 <h3 id="connecting-to-your-linode">Connecting to your linode</h3>
 <p>Click on the <strong>Remote Access</strong> tab in your account and copy the IP address from the SSH Access field. This is the IP address of your linode.
-<img src="http://dasari.me/assets/linode_remote_access.png" alt="Remote access" /></p>
+<img src="http://localhost:4000/assets/linode_remote_access.png" alt="Remote access" /></p>
 
 <p>We will connect to our linode via SSH. <br />
 Mac users can use Terminal or iTerm2</p>
@@ -408,7 +408,7 @@ cap production deploy
 
 <p>Open browser and type your domain name or IPADDRESS. You should see the below page</p>
 
-<p><img src="http://dasari.me/assets/linode_deploy_home_page.png" alt="Deploy home page" /></p>
+<p><img src="http://localhost:4000/assets/linode_deploy_home_page.png" alt="Deploy home page" /></p>
 
 <p>That is all we have to do to deploy a Ruby on Rails application to run on Ubuntu 12.04.</p>
 

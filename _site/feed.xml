@@ -4,11 +4,165 @@
     <title>DV Dasari</title>
     <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
 </description>
-    <link>http://dasari.me/</link>
-    <atom:link href="http://dasari.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 29 May 2016 21:13:12 -0500</pubDate>
-    <lastBuildDate>Sun, 29 May 2016 21:13:12 -0500</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 29 May 2016 21:29:14 -0500</pubDate>
+    <lastBuildDate>Sun, 29 May 2016 21:29:14 -0500</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Configure NGINX for multiple websites on a VPS</title>
+        <description>&lt;p&gt;In this post I will show how to configure NGINX to host multiple domains on a VPS&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;I will be using&lt;/strong&gt; &lt;br /&gt;
+NGINX&lt;br /&gt;
+Passenger&lt;br /&gt;
+Digital Ocean (for hosting, but any hosting provider like Linode, Dreamhost, etc can be used)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;I will show how to host 3 domain names. Lets say they are:&lt;/strong&gt; &lt;br /&gt;
+domain1.com&lt;br /&gt;
+domain2.com&lt;br /&gt;
+domain3.com&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;First we will setup our DNS records for each of the domains. Here is how they look.
+&lt;img src=&quot;http://localhost:4000/assets/nginx_domain1.png&quot; alt=&quot;Nginx Domain&quot; /&gt;
+&lt;img src=&quot;http://localhost:4000/assets/nginx_domain2.png&quot; alt=&quot;Nginx Domain&quot; /&gt;
+&lt;img src=&quot;http://localhost:4000/assets/nginx_domain3.png&quot; alt=&quot;Nginx Domain&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I have shown how to deploy a Ruby on Rails app in my previous post - &lt;a href=&quot;/2014/01/26/deploy-ruby-on-rails-to-linode-on-ubuntu-12-dot-04/&quot;&gt;Deploy Ruby on Rails 4 Application on Ubuntu 12.04 With Nginx and Passenger&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I have deployed 3 apps for each domain and they are in the below paths: &lt;br /&gt;
+/home/user_name/domain1&lt;br /&gt;
+/home/user_name/domain2&lt;br /&gt;
+/home/user_name/domain3&lt;/p&gt;
+
+&lt;p&gt;On the server, Nginx has a &lt;em&gt;default&lt;/em&gt; configuration file at /etc/nginx/sites-available
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby
+root@user_name:/etc/nginx/sites-available$ ls -l
+-rw-r--r-- 1 root root 356 Jan 28 05:29 default
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;and a symlink to this file at /etc/nginx/sites-enabled
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby
+root@user_name:/etc/nginx/sites-enabled$ ll
+lrwxrwxrwx 1 root root   34 Jan 28 04:15 default -&amp;gt; /etc/nginx/sites-available/default
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;We will remove the symlink to the default file (which is equal to disabling the default configuration) and create 3 configuration files for the 3 domains
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby
+root@user_name:/etc/nginx/sites-enabled$ rm default
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@user_name&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;etc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sites&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;available&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;touch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;domain1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;com&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@user_name&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;etc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sites&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;available&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;touch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;domain2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;com&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@user_name&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;etc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sites&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;available&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;touch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;domain3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;com&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now lets create symlinks for these files in /etc/nginx/sites-enabled
+``` ruby
+root@user_name:/etc/nginx/sites-enabled$ pwd
+/etc/nginx/sites-enabled&lt;/p&gt;
+
+&lt;p&gt;root@user_name:/etc/nginx/sites-enabled$ ln -s /etc/nginx/sites-available/domain1.com domain1.com
+root@user_name:/etc/nginx/sites-enabled$ ln -s /etc/nginx/sites-available/domain2.com domain2.com
+root@user_name:/etc/nginx/sites-enabled$ ln -s /etc/nginx/sites-available/domain3.com domain3.com&lt;/p&gt;
+
+&lt;p&gt;root@user_name:/etc/nginx/sites-enabled$ ls -l
+lrwxrwxrwx 1 root root 38 Jan 29 16:15 domain1.com -&amp;gt; /etc/nginx/sites-available/domain1.com
+lrwxrwxrwx 1 root root 38 Jan 29 16:15 domain2.com -&amp;gt; /etc/nginx/sites-available/domain2.com
+lrwxrwxrwx 1 root root 38 Jan 29 16:15 domain3.com -&amp;gt; /etc/nginx/sites-available/domain3.com
+```&lt;/p&gt;
+
+&lt;p&gt;We will have the below configuration in these files
+``` ruby /etc/nginx/sites-available/domain1.com
+server {
+  listen 80;&lt;/p&gt;
+
+&lt;p&gt;server_name www.domain1.com domain1.com;
+  passenger_enabled on;
+  rails_env production;
+  root /home/user_name/domain1/current/public;&lt;/p&gt;
+
+&lt;p&gt;error_page 500 502 503 504  /50x.html;
+  location = /50.x.html {
+    root html;
+  }
+}
+```&lt;/p&gt;
+
+&lt;p&gt;``` ruby /etc/nginx/sites-available/domain2.com
+server {
+  listen 80;&lt;/p&gt;
+
+&lt;p&gt;server_name www.domain2.com domain2.com;
+  passenger_enabled on;
+  rails_env production;
+  root /home/user_name/domain2/current/public;&lt;/p&gt;
+
+&lt;p&gt;error_page 500 502 503 504  /50x.html;
+  location = /50.x.html {
+    root html;
+  }
+}
+```&lt;/p&gt;
+
+&lt;p&gt;``` ruby /etc/nginx/sites-available/domain3.com
+server {
+  listen 80;&lt;/p&gt;
+
+&lt;p&gt;server_name www.domain3.com domain3.com;
+  passenger_enabled on;
+  rails_env production;
+  root /home/user_name/domain3/current/public;&lt;/p&gt;
+
+&lt;p&gt;error_page 500 502 503 504  /50x.html;
+  location = /50.x.html {
+    root html;
+  }
+}
+```&lt;/p&gt;
+
+&lt;p&gt;Restart NGINX
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby
+sudo service nginx restart
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;To verify if all the configurations are correct, run &lt;em&gt;sudo nginx -t&lt;/em&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby
+root@user_name:/etc/nginx/sites-enabled$ sudo nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;That is all we have to do.&lt;/p&gt;
+
+&lt;p&gt;Open a browser and check for domain1.com, domain2.com, domain3.com. They should load the sites.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;If anything is not working you can do a couple of things to see what is wrong&lt;/strong&gt; &lt;br /&gt;
+1. Verify if all the configurations are correct by running &lt;em&gt;sudo nginx -t&lt;/em&gt; &lt;br /&gt;
+2. Check NGINX log files at &lt;em&gt;/var/log/nginx/&lt;/em&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@user_name&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;etc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sites&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enabled&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
+&lt;span class=&quot;ss&quot;&gt;nginx: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;configuration&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/etc/n&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ginx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;conf&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;syntax&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ok&lt;/span&gt;
+&lt;span class=&quot;ss&quot;&gt;nginx: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;configuration&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/etc/n&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ginx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;conf&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;successful&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@user_name&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;etc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sites&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enabled&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/var/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@user_name&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nginx&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ll&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;9838&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Jan&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;29&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;access&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;17762&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Jan&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;29&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;38&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Wed, 29 Jan 2014 00:15:37 -0600</pubDate>
+        <link>http://localhost:4000/2014/01/29/configure-nginx-for-multiple-websites-on-a-vps.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2014/01/29/configure-nginx-for-multiple-websites-on-a-vps.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Deploy Ruby On Rails 4 Application on Ubuntu 12.04 with Nginx and Passenger</title>
@@ -30,22 +184,22 @@
 &lt;p&gt;First &lt;a href=&quot;https://manager.linode.com/signup&quot;&gt;sign up&lt;/a&gt; for a Linode account if you do not have an account already.
 Then &lt;strong&gt;Add a Linode&lt;/strong&gt; and &lt;strong&gt;Select your plan&lt;/strong&gt; from one of the plans available&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://dasari.me/assets/linode_select_your_plan.png&quot; alt=&quot;Select your plan&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/linode_select_your_plan.png&quot; alt=&quot;Select your plan&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;you will have to select &lt;strong&gt;Payment Term&lt;/strong&gt; and &lt;strong&gt;Location&lt;/strong&gt; and &lt;strong&gt;Add this Linode!&lt;/strong&gt; and &lt;strong&gt;Complete Order&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;select-a-linux-distribution&quot;&gt;Select a Linux Distribution&lt;/h3&gt;
 &lt;p&gt;There are a lot of operating systems to choose from, but we will go with Ubuntu 12.04 LTS
-&lt;img src=&quot;http://dasari.me/assets/linode_rebuild_distribution.png&quot; alt=&quot;Rebuild distribution&quot; /&gt;
+&lt;img src=&quot;http://localhost:4000/assets/linode_rebuild_distribution.png&quot; alt=&quot;Rebuild distribution&quot; /&gt;
 Click &lt;strong&gt;Rebuild&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Now you have your Linode, but it is initially in a &lt;strong&gt;Powered Off&lt;/strong&gt; state. So Click on &lt;strong&gt;Boot&lt;/strong&gt; to boot your linode.
-&lt;img src=&quot;http://dasari.me/assets/linode_boot.png&quot; alt=&quot;Boot&quot; /&gt;
+&lt;img src=&quot;http://localhost:4000/assets/linode_boot.png&quot; alt=&quot;Boot&quot; /&gt;
 Give it a few seconds to boot.&lt;/p&gt;
 
 &lt;h3 id=&quot;connecting-to-your-linode&quot;&gt;Connecting to your linode&lt;/h3&gt;
 &lt;p&gt;Click on the &lt;strong&gt;Remote Access&lt;/strong&gt; tab in your account and copy the IP address from the SSH Access field. This is the IP address of your linode.
-&lt;img src=&quot;http://dasari.me/assets/linode_remote_access.png&quot; alt=&quot;Remote access&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;http://localhost:4000/assets/linode_remote_access.png&quot; alt=&quot;Remote access&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;We will connect to our linode via SSH. &lt;br /&gt;
 Mac users can use Terminal or iTerm2&lt;/p&gt;
@@ -358,22 +512,14 @@ cap production deploy
 
 &lt;p&gt;Open browser and type your domain name or IPADDRESS. You should see the below page&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://dasari.me/assets/linode_deploy_home_page.png&quot; alt=&quot;Deploy home page&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/linode_deploy_home_page.png&quot; alt=&quot;Deploy home page&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;That is all we have to do to deploy a Ruby on Rails application to run on Ubuntu 12.04.&lt;/p&gt;
 </description>
         <pubDate>Sun, 26 Jan 2014 21:13:01 -0600</pubDate>
-        <link>http://dasari.me/ruby/rails/nginx/ubuntu/2014/01/26/deploy-ruby-on-rails-to-linode-on-ubuntu-12-dot-04.html</link>
-        <guid isPermaLink="true">http://dasari.me/ruby/rails/nginx/ubuntu/2014/01/26/deploy-ruby-on-rails-to-linode-on-ubuntu-12-dot-04.html</guid>
+        <link>http://localhost:4000/2014/01/26/deploy-ruby-on-rails-to-linode-on-ubuntu-12-dot-04.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2014/01/26/deploy-ruby-on-rails-to-linode-on-ubuntu-12-dot-04.html</guid>
         
-        
-        <category>ruby</category>
-        
-        <category>rails</category>
-        
-        <category>nginx</category>
-        
-        <category>ubuntu</category>
         
       </item>
     
@@ -395,8 +541,8 @@ cap production deploy
 
 </description>
         <pubDate>Sun, 29 Jan 2012 18:35:03 -0600</pubDate>
-        <link>http://dasari.me/jekyll/update/2012/01/29/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://dasari.me/jekyll/update/2012/01/29/welcome-to-jekyll.html</guid>
+        <link>http://localhost:4000/jekyll/update/2012/01/29/welcome-to-jekyll.html</link>
+        <guid isPermaLink="true">http://localhost:4000/jekyll/update/2012/01/29/welcome-to-jekyll.html</guid>
         
         
         <category>jekyll</category>
