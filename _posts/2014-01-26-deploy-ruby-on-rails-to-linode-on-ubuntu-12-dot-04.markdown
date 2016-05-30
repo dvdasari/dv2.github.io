@@ -12,11 +12,17 @@ This is a step by step guide for deploying a Ruby on Rails 4 application to Ubun
 Here we will deploy to Linux Virtual Servers in the Linode Cloud. The same steps can be followed to deploy to other VPS servers, like [DigitalOcean](https://www.digitalocean.com), [Dreamhost](http://www.dreamhost.com) etc.
 
 We will be using
+
 ### Ubuntu 12.04
+
 ### [Nginx](http://nginx.com)
+
 ### [Passenger](https://www.phusionpassenger.com)
+
 ### Ruby 2.1.0
+
 ### Rails 4.0.2
+
 ### MySql
 
 <!-- more -->
@@ -31,11 +37,15 @@ you will have to select **Payment Term** and **Location** and **Add this Linode!
 
 ### Select a Linux Distribution
 There are a lot of operating systems to choose from, but we will go with Ubuntu 12.04 LTS
+
 ![Rebuild distribution]({{ site.url }}/assets/linode_rebuild_distribution.png)
+
 Click **Rebuild**
 
 Now you have your Linode, but it is initially in a **Powered Off** state. So Click on **Boot** to boot your linode.
+
 ![Boot]({{ site.url }}/assets/linode_boot.png)
+
 Give it a few seconds to boot.
 
 ### Connecting to your linode
@@ -45,32 +55,32 @@ Click on the **Remote Access** tab in your account and copy the IP address from 
 We will connect to our linode via SSH.   
 Mac users can use Terminal or iTerm2
 
-```
+{% highlight ruby %}
 ssh root@IPADDRESS
-```
+{% endhighlight %}
 
 If you get the below warning, type *yes* and press Enter
-```
+{% highlight ruby %}
 [~]$ ssh root@IPADDRESS
 The authenticity of host 'IPADDRESS (IPADDRESS)' can't be established.
 RSA key fingerprint is 1b:16:36:09:4b:95:5e:35:53:d2:c9:b1:65:cd:cc:51.
 Are you sure you want to continue connecting (yes/no)?
-```
+{% endhighlight %}
 
 It will prompt to enter password, Enter the password you created for the *root* user (while setting up the Linux distribution) and press Enter
-```
+{% highlight ruby %}
 [~]$ ssh root@IPADDRESS
 root@IPADDRESS's password:
-```
+{% endhighlight %}
 
 You are now logged into your linode via SSH.
 
 The first thing we will do on our new server is create a user account to run our applications
-```
+{% highlight ruby %}
 sudo adduser user_name
 sudo adduser user_name sudo
 su user_name
-```
+{% endhighlight %}
 
 ### Setting up SSH keys to login without having to enter password everytime
 
@@ -82,23 +92,24 @@ We will copy this on to server file *~/.ssh/authorized_keys*
 
 Most likely you will not have the .ssh folder on server, so lets create that first and then we will create file *authorized_keys* and copy the public key there.
 
-```
+{% highlight ruby %}
 cd ~
 mkdir .ssh
 cd .ssh
 touch authorized_keys
 vi authorized_keys
-```
-copy the contents of file ~/.ssh/id_rsa.pub to authorized_keys
+{% endhighlight %}
+
+copy the contents of file `~/.ssh/id_rsa.pub` to `authorized_keys`
 
 Now logout of the server by typing
-```
+{% highlight ruby %}
 exit
-```
+{% endhighlight %}
 and log back in by typing
-```
+{% highlight ruby %}
 ssh user_name@IPADDRESS
-```
+{% endhighlight %}
 it should log you into the server without asking for the password.
 
 **We have successfully** <br>
@@ -114,7 +125,7 @@ Now we are all set to install the software required to deploy our app.
 
 We will login as a regular user 'user_name' and not as the root user from here on.
 
-```
+{% highlight ruby %}
 ### installing dependenies for ruby
 sudo apt-get update
 sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev libcurl4-openssl-dev python-software-properties
@@ -135,10 +146,10 @@ gem install bundler
 sudo add-apt-repository ppa:chris-lea/node.js
 sudo apt-get update
 sudo apt-get install nodejs
-```
+{% endhighlight %}
 
 ## Installing Nginx and Passenger on Server
-```
+{% highlight ruby %}
 # Install Phusion's PGP key to verify packages
 gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
 gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add -
@@ -154,25 +165,25 @@ sudo apt-get update
 
 # Install nginx and passenger
 sudo apt-get install nginx-full passenger
-```
+{% endhighlight %}
 
 Now that Nginx and Passenger are installed, we can manage the Nginx webserver by using the service commands
-```
+{% highlight ruby %}
 sudo service nginx start
 sudo service nginx stop
 sudo service nginx restart
-```
+{% endhighlight %}
 
 Next, we need to update the Nginx configuration to update passenger_root, passenger_ruby
 
 To find passenger_root
-```
+{% highlight ruby %}
 user_name@linode:~$ passenger-config --root
 /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini
-```
+{% endhighlight %}
 
 To find passenger_ruby
-```
+{% highlight ruby %}
 user_name@linode:~$ passenger-config --ruby-command
 passenger-config was invoked through the following Ruby interpreter:
   Command: /home/user_name/.rvm/gems/ruby-2.1.0/wrappers/ruby
@@ -181,10 +192,10 @@ passenger-config was invoked through the following Ruby interpreter:
   To use in Nginx : passenger_ruby /home/user_name/.rvm/gems/ruby-2.1.0/wrappers/ruby
   To use with Standalone: /home/user_name/.rvm/gems/ruby-2.1.0/wrappers/ruby /usr/bin/passenger start
 
-```
+{% endhighlight %}
 
 Open file /etc/nginx/nginx.conf and uncomment and set passenger_root, passenger_ruby
-``` ruby /etc/nginx/nginx.conf
+{% highlight ruby %}
 ##
 # Phusion Passenger
 ##
@@ -193,71 +204,71 @@ Open file /etc/nginx/nginx.conf and uncomment and set passenger_root, passenger_
 
 passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
 passenger_ruby /home/user_name/.rvm/gems/ruby-2.1.0/wrappers/ruby
-```
+{% endhighlight %}
 
 Update the file /etc/nginx/sites-enabled/default to have the below content
-``` ruby /etc/nginx/sites-enabled/default
+{% highlight ruby %}
 server {
-        listen 80 default_server;
-        listen [::]:80 default_server ipv6only=on;
+  listen 80 default_server;
+  listen [::]:80 default_server ipv6only=on;
 
-        server_name your_domain_name.com;
-        passenger_enabled on;
-        rails_env production;
-        root /home/user_name/myapp/current/public;
+  server_name your_domain_name.com;
+  passenger_enabled on;
+  rails_env production;
+  root /home/user_name/myapp/current/public;
 
-        error_page 500 502 503 504  /50x.html;
-        location = /50.x.html {
-            root html;
-        }
+  error_page 500 502 503 504  /50x.html;
+  location = /50.x.html {
+    root html;
+  }
 }
-```
+{% endhighlight %}
 
 ## Installing MySql on Server
-``` ruby
+{% highlight ruby %}
 sudo apt-get install mysql-server mysql-client libmysqlclient-dev
-```
+{% endhighlight %}
 
 ## Create a new Ruby on Rails application on your local box/computer
 
 Install the latest ruby version 2.1.0 via rvm  
 
-``` ruby
+{% highlight ruby %}
 rvm install 2.1.0
-```
+{% endhighlight %}
 
 Install the latest rails version 4.0.2
-``` ruby
+{% highlight ruby %}
 gem install rails
-```
+{% endhighlight %}
 
 Create a new rails app with mysql database
-``` ruby
+{% highlight ruby %}
 rails new myapp -d=mysql
-```
+{% endhighlight %}
 
 Lets create a controller and setup routes for root path
-``` ruby
+{% highlight ruby %}
 rails g controller Pages index
-```
+{% endhighlight %}
 
 Update config/routes.rb
-``` ruby config/routes.rb
+{% highlight ruby %}
 Myapp::Application.routes.draw do
   root to: 'pages#index'
 end
-```
+{% endhighlight %}
 
 Update Gemfile to add the gems needed for Capistrano
-``` ruby Gemfile
+{% highlight ruby %}
 gem 'capistrano'
 gem 'capistrano-bundler'
 gem 'capistrano-rails'
 gem 'capistrano-rvm'
-```
+{% endhighlight %}
 
 Modify config/database.yml to look like below
-``` ruby config/database.yml
+{% highlight ruby %}
 development:
   adapter: mysql2
   encoding: utf8
@@ -283,16 +294,16 @@ production:
   pool: 5
   username: root
   password:
-```
+{% endhighlight %}
 
 Bundle and create files needed for Capistrano
-``` ruby On command line
+{% highlight ruby %}
 bundle --binstubs
 cap install STAGES=production
-```
+{% endhighlight %}
 
 Modify Capfile to look as below
-``` ruby Capfile
+{% highlight ruby %}
 require 'capistrano/setup'
 require 'capistrano/deploy'
 require 'capistrano/rvm'
@@ -301,11 +312,11 @@ require 'capistrano/rails'
 set :rvm_type, :user
 set :rvm_ruby_version, '2.1.0'
 Dir.glob('lib/capistrano/tasks/*.cap').each { |r| import r }
-```
+{% endhighlight %}
 
 Modify config/deploy.rb to look as below  
 *update repo_url below with the correct github repo url*
-``` ruby config/deploy.rb
+{% highlight ruby %}
 lock '3.1.0'
 
 set :application, 'myapp'
@@ -324,10 +335,10 @@ namespace :deploy do
 
   after :finishing, 'deploy:cleanup'
 end
-```
+{% endhighlight %}
 
 Modify config/deploy/production.rb to look as below
-``` ruby config/deploy/production.rb
+{% highlight ruby %}
 role :app, %w{user_name@IPADDRESS}
 role :web, %w{user_name@IPADDRESS}
 role :db,  %w{user_name@IPADDRESS}
@@ -335,19 +346,19 @@ role :db,  %w{user_name@IPADDRESS}
 set :stage, :production
 
 server 'IPADDRESS', user: 'user_name', roles: %w{web app}, my_property: :my_value
-```
+{% endhighlight %}
 
 Create database on server
-``` ruby
+{% highlight ruby %}
 mysql -uroot -p
 Enter password: (enter password you entered when you installed mysql)
 mysql> CREATE DATABASE myapp_production;
-```
+{% endhighlight %}
 
 Deploying app on server
-``` ruby
+{% highlight ruby %}
 cap production deploy
-```
+{% endhighlight %}
 
 Now we have completed everything to deploy our Rails app on a Linux Virtual Server.
 

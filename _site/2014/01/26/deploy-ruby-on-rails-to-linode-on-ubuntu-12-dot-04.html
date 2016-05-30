@@ -66,13 +66,19 @@
 
 <p>Here we will deploy to Linux Virtual Servers in the Linode Cloud. The same steps can be followed to deploy to other VPS servers, like <a href="https://www.digitalocean.com">DigitalOcean</a>, <a href="http://www.dreamhost.com">Dreamhost</a> etc.</p>
 
-<p>We will be using
-### Ubuntu 12.04
-### <a href="http://nginx.com">Nginx</a>
-### <a href="https://www.phusionpassenger.com">Passenger</a>
-### Ruby 2.1.0
-### Rails 4.0.2
-### MySql</p>
+<p>We will be using</p>
+
+<h3 id="ubuntu-1204">Ubuntu 12.04</h3>
+
+<h3 id="nginxhttpnginxcom"><a href="http://nginx.com">Nginx</a></h3>
+
+<h3 id="passengerhttpswwwphusionpassengercom"><a href="https://www.phusionpassenger.com">Passenger</a></h3>
+
+<h3 id="ruby-210">Ruby 2.1.0</h3>
+
+<h3 id="rails-402">Rails 4.0.2</h3>
+
+<h3 id="mysql">MySql</h3>
 
 <!-- more -->
 
@@ -85,13 +91,17 @@ Then <strong>Add a Linode</strong> and <strong>Select your plan</strong> from on
 <p>you will have to select <strong>Payment Term</strong> and <strong>Location</strong> and <strong>Add this Linode!</strong> and <strong>Complete Order</strong></p>
 
 <h3 id="select-a-linux-distribution">Select a Linux Distribution</h3>
-<p>There are a lot of operating systems to choose from, but we will go with Ubuntu 12.04 LTS
-<img src="http://localhost:4000/assets/linode_rebuild_distribution.png" alt="Rebuild distribution" />
-Click <strong>Rebuild</strong></p>
+<p>There are a lot of operating systems to choose from, but we will go with Ubuntu 12.04 LTS</p>
 
-<p>Now you have your Linode, but it is initially in a <strong>Powered Off</strong> state. So Click on <strong>Boot</strong> to boot your linode.
-<img src="http://localhost:4000/assets/linode_boot.png" alt="Boot" />
-Give it a few seconds to boot.</p>
+<p><img src="http://localhost:4000/assets/linode_rebuild_distribution.png" alt="Rebuild distribution" /></p>
+
+<p>Click <strong>Rebuild</strong></p>
+
+<p>Now you have your Linode, but it is initially in a <strong>Powered Off</strong> state. So Click on <strong>Boot</strong> to boot your linode.</p>
+
+<p><img src="http://localhost:4000/assets/linode_boot.png" alt="Boot" /></p>
+
+<p>Give it a few seconds to boot.</p>
 
 <h3 id="connecting-to-your-linode">Connecting to your linode</h3>
 <p>Click on the <strong>Remote Access</strong> tab in your account and copy the IP address from the SSH Access field. This is the IP address of your linode.
@@ -100,32 +110,27 @@ Give it a few seconds to boot.</p>
 <p>We will connect to our linode via SSH. <br />
 Mac users can use Terminal or iTerm2</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ssh root@IPADDRESS
-</code></pre>
-</div>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ssh</span> <span class="n">root</span><span class="vi">@IPADDRESS</span></code></pre></figure>
 
-<p>If you get the below warning, type <em>yes</em> and press Enter
-<code class="highlighter-rouge">
-[~]$ ssh root@IPADDRESS
-The authenticity of host 'IPADDRESS (IPADDRESS)' can't be established.
-RSA key fingerprint is 1b:16:36:09:4b:95:5e:35:53:d2:c9:b1:65:cd:cc:51.
-Are you sure you want to continue connecting (yes/no)?
-</code></p>
+<p>If you get the below warning, type <em>yes</em> and press Enter</p>
 
-<p>It will prompt to enter password, Enter the password you created for the <em>root</em> user (while setting up the Linux distribution) and press Enter
-<code class="highlighter-rouge">
-[~]$ ssh root@IPADDRESS
-root@IPADDRESS's password:
-</code></p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">[</span><span class="o">~</span><span class="p">]</span><span class="err">$</span> <span class="n">ssh</span> <span class="n">root</span><span class="vi">@IPADDRESS</span>
+<span class="no">The</span> <span class="n">authenticity</span> <span class="n">of</span> <span class="n">host</span> <span class="s1">'IPADDRESS (IPADDRESS)'</span> <span class="n">can</span><span class="err">'</span><span class="n">t</span> <span class="n">be</span> <span class="n">established</span><span class="o">.</span>
+<span class="no">RSA</span> <span class="n">key</span> <span class="n">fingerprint</span> <span class="n">is</span> <span class="mi">1</span><span class="n">b</span><span class="p">:</span><span class="mi">16</span><span class="p">:</span><span class="mi">36</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">4</span><span class="n">b</span><span class="p">:</span><span class="mi">95</span><span class="p">:</span><span class="mi">5</span><span class="n">e</span><span class="p">:</span><span class="mi">35</span><span class="p">:</span><span class="mi">53</span><span class="ss">:d2:c9:b1</span><span class="p">:</span><span class="mi">65</span><span class="ss">:cd:cc</span><span class="p">:</span><span class="mi">51</span><span class="o">.</span>
+<span class="no">Are</span> <span class="n">you</span> <span class="n">sure</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">continue</span> <span class="n">connecting</span> <span class="p">(</span><span class="n">yes</span><span class="o">/</span><span class="n">no</span><span class="p">)?</span></code></pre></figure>
+
+<p>It will prompt to enter password, Enter the password you created for the <em>root</em> user (while setting up the Linux distribution) and press Enter</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">[</span><span class="o">~</span><span class="p">]</span><span class="err">$</span> <span class="n">ssh</span> <span class="n">root</span><span class="vi">@IPADDRESS</span>
+<span class="n">root</span><span class="vi">@IPADDRESS</span><span class="err">'</span><span class="n">s</span> <span class="n">password</span><span class="p">:</span></code></pre></figure>
 
 <p>You are now logged into your linode via SSH.</p>
 
-<p>The first thing we will do on our new server is create a user account to run our applications
-<code class="highlighter-rouge">
-sudo adduser user_name
-sudo adduser user_name sudo
-su user_name
-</code></p>
+<p>The first thing we will do on our new server is create a user account to run our applications</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">sudo</span> <span class="n">adduser</span> <span class="n">user_name</span>
+<span class="n">sudo</span> <span class="n">adduser</span> <span class="n">user_name</span> <span class="n">sudo</span>
+<span class="n">su</span> <span class="n">user_name</span></code></pre></figure>
 
 <h3 id="setting-up-ssh-keys-to-login-without-having-to-enter-password-everytime">Setting up SSH keys to login without having to enter password everytime</h3>
 
@@ -137,24 +142,23 @@ We will copy this on to server file <em>~/.ssh/authorized_keys</em></p>
 
 <p>Most likely you will not have the .ssh folder on server, so lets create that first and then we will create file <em>authorized_keys</em> and copy the public key there.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>cd ~
-mkdir .ssh
-cd .ssh
-touch authorized_keys
-vi authorized_keys
-</code></pre>
-</div>
-<p>copy the contents of file ~/.ssh/id_rsa.pub to authorized_keys</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">cd</span> <span class="o">~</span>
+<span class="n">mkdir</span> <span class="p">.</span><span class="nf">ssh</span>
+<span class="n">cd</span> <span class="p">.</span><span class="nf">ssh</span>
+<span class="n">touch</span> <span class="n">authorized_keys</span>
+<span class="n">vi</span> <span class="n">authorized_keys</span></code></pre></figure>
 
-<p>Now logout of the server by typing
-<code class="highlighter-rouge">
-exit
-</code>
-and log back in by typing
-<code class="highlighter-rouge">
-ssh user_name@IPADDRESS
-</code>
-it should log you into the server without asking for the password.</p>
+<p>copy the contents of file <code class="highlighter-rouge">~/.ssh/id_rsa.pub</code> to <code class="highlighter-rouge">authorized_keys</code></p>
+
+<p>Now logout of the server by typing</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">exit</span></code></pre></figure>
+
+<p>and log back in by typing</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ssh</span> <span class="n">user_name</span><span class="vi">@IPADDRESS</span></code></pre></figure>
+
+<p>it should log you into the server without asking for the password.</p>
 
 <p><strong>We have successfully</strong> <br />
 1. Created a Linode account<br />
@@ -169,240 +173,216 @@ it should log you into the server without asking for the password.</p>
 
 <p>We will login as a regular user ‘user_name’ and not as the root user from here on.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>### installing dependenies for ruby
-sudo apt-get update
-sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev libcurl4-openssl-dev python-software-properties
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">### installing dependenies for ruby</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">git</span><span class="o">-</span><span class="n">core</span> <span class="n">curl</span> <span class="n">zlib1g</span><span class="o">-</span><span class="n">dev</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">libreadline</span><span class="o">-</span><span class="n">dev</span> <span class="n">libyaml</span><span class="o">-</span><span class="n">dev</span> <span class="n">libsqlite3</span><span class="o">-</span><span class="n">dev</span> <span class="n">sqlite3</span> <span class="n">libxml2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libxslt</span><span class="o">-</span><span class="n">dev</span> <span class="n">libcurl4</span><span class="o">-</span><span class="n">openssl</span><span class="o">-</span><span class="n">dev</span> <span class="n">python</span><span class="o">-</span><span class="n">software</span><span class="o">-</span><span class="n">properties</span>
 
-### installing rvm
-sudo apt-get install libgdbm-dev libncurses5-dev automake libtool bison libffi-dev
-curl -L https://get.rvm.io | bash -s stable
-source ~/.rvm/scripts/rvm
-rvm install 2.1.0
-rvm use 2.1.0 --default
-ruby -v
+<span class="c1">### installing rvm</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libgdbm</span><span class="o">-</span><span class="n">dev</span> <span class="n">libncurses5</span><span class="o">-</span><span class="n">dev</span> <span class="n">automake</span> <span class="n">libtool</span> <span class="n">bison</span> <span class="n">libffi</span><span class="o">-</span><span class="n">dev</span>
+<span class="n">curl</span> <span class="o">-</span><span class="no">L</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">get</span><span class="p">.</span><span class="nf">rvm</span><span class="p">.</span><span class="nf">io</span> <span class="o">|</span> <span class="n">bash</span> <span class="o">-</span><span class="n">s</span> <span class="n">stable</span>
+<span class="n">source</span> <span class="o">~</span><span class="sr">/.rvm/s</span><span class="n">cripts</span><span class="o">/</span><span class="n">rvm</span>
+<span class="n">rvm</span> <span class="n">install</span> <span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span>
+<span class="n">rvm</span> <span class="n">use</span> <span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span> <span class="o">--</span><span class="n">default</span>
+<span class="n">ruby</span> <span class="o">-</span><span class="n">v</span>
 
-### tell Rubygems to not install documentation
-echo "gem: --no-ri --no-rdoc" &gt; ~/.gemrc
+<span class="c1">### tell Rubygems to not install documentation</span>
+<span class="n">echo</span> <span class="s2">"gem: --no-ri --no-rdoc"</span> <span class="o">&gt;</span> <span class="o">~</span><span class="sr">/.gemrc
 gem install bundler
 
 ### install javascript runtime
-sudo add-apt-repository ppa:chris-lea/node.js
-sudo apt-get update
-sudo apt-get install nodejs
-</code></pre>
-</div>
+sudo add-apt-repository ppa:chris-lea/no</span><span class="n">de</span><span class="p">.</span><span class="nf">js</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">nodejs</span></code></pre></figure>
 
 <h2 id="installing-nginx-and-passenger-on-server">Installing Nginx and Passenger on Server</h2>
-<div class="highlighter-rouge"><pre class="highlight"><code># Install Phusion's PGP key to verify packages
-gpg --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
-gpg --armor --export 561F9B9CAC40B2F7 | sudo apt-key add -
 
-# Add HTTPS support to APT
-sudo apt-get install apt-transport-https
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Install Phusion's PGP key to verify packages</span>
+<span class="n">gpg</span> <span class="o">--</span><span class="n">keyserver</span> <span class="n">keyserver</span><span class="p">.</span><span class="nf">ubuntu</span><span class="p">.</span><span class="nf">com</span> <span class="o">--</span><span class="n">recv</span><span class="o">-</span><span class="n">keys</span> <span class="mi">561</span><span class="no">F9B9CAC40B2F7</span>
+<span class="n">gpg</span> <span class="o">--</span><span class="n">armor</span> <span class="o">--</span><span class="n">export</span> <span class="mi">561</span><span class="no">F9B9CAC40B2F7</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">key</span> <span class="n">add</span> <span class="o">-</span>
 
-# Add the passenger repository
-sudo sh -c "echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger precise main' &gt;&gt; /etc/apt/sources.list.d/passenger.list"
-sudo chown root: /etc/apt/sources.list.d/passenger.list
-sudo chmod 600 /etc/apt/sources.list.d/passenger.list
-sudo apt-get update
+<span class="c1"># Add HTTPS support to APT</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">apt</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">https</span>
 
-# Install nginx and passenger
-sudo apt-get install nginx-full passenger
-</code></pre>
-</div>
+<span class="c1"># Add the passenger repository</span>
+<span class="n">sudo</span> <span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="s2">"echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger precise main' &gt;&gt; /etc/apt/sources.list.d/passenger.list"</span>
+<span class="n">sudo</span> <span class="n">chown</span> <span class="ss">root: </span><span class="sr">/etc/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="p">.</span><span class="nf">list</span><span class="p">.</span><span class="nf">d</span><span class="o">/</span><span class="n">passenger</span><span class="p">.</span><span class="nf">list</span>
+<span class="n">sudo</span> <span class="n">chmod</span> <span class="mi">600</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="p">.</span><span class="nf">list</span><span class="p">.</span><span class="nf">d</span><span class="o">/</span><span class="n">passenger</span><span class="p">.</span><span class="nf">list</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
 
-<p>Now that Nginx and Passenger are installed, we can manage the Nginx webserver by using the service commands
-<code class="highlighter-rouge">
-sudo service nginx start
-sudo service nginx stop
-sudo service nginx restart
-</code></p>
+<span class="c1"># Install nginx and passenger</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">nginx</span><span class="o">-</span><span class="n">full</span> <span class="n">passenger</span></code></pre></figure>
+
+<p>Now that Nginx and Passenger are installed, we can manage the Nginx webserver by using the service commands</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">sudo</span> <span class="n">service</span> <span class="n">nginx</span> <span class="n">start</span>
+<span class="n">sudo</span> <span class="n">service</span> <span class="n">nginx</span> <span class="n">stop</span>
+<span class="n">sudo</span> <span class="n">service</span> <span class="n">nginx</span> <span class="n">restart</span></code></pre></figure>
 
 <p>Next, we need to update the Nginx configuration to update passenger_root, passenger_ruby</p>
 
-<p>To find passenger_root
-<code class="highlighter-rouge">
-user_name@linode:~$ passenger-config --root
-/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini
-</code></p>
+<p>To find passenger_root</p>
 
-<p>To find passenger_ruby
-```
-user_name@linode:~$ passenger-config –ruby-command
-passenger-config was invoked through the following Ruby interpreter:
-  Command: /home/user_name/.rvm/gems/ruby-2.1.0/wrappers/ruby
-  Version: ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]
-  To use in Apache: PassengerRuby /home/user_name/.rvm/gems/ruby-2.1.0/wrappers/ruby
-  To use in Nginx : passenger_ruby /home/user_name/.rvm/gems/ruby-2.1.0/wrappers/ruby
-  To use with Standalone: /home/user_name/.rvm/gems/ruby-2.1.0/wrappers/ruby /usr/bin/passenger start</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">user_name</span><span class="vi">@linode</span><span class="ss">:~</span><span class="err">$</span> <span class="n">passenger</span><span class="o">-</span><span class="n">config</span> <span class="o">--</span><span class="n">root</span>
+<span class="sr">/usr/</span><span class="n">lib</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="n">vendor_ruby</span><span class="o">/</span><span class="n">phusion_passenger</span><span class="o">/</span><span class="n">locations</span><span class="p">.</span><span class="nf">ini</span></code></pre></figure>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
-Open file /etc/nginx/nginx.conf and uncomment and set passenger_root, passenger_ruby
-``` ruby /etc/nginx/nginx.conf
-##
-# Phusion Passenger
-##
-# Uncomment it if you installed ruby-passenger or ruby-passenger-enterprise
-##
+<p>To find passenger_ruby</p>
 
-passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
-passenger_ruby /home/user_name/.rvm/gems/ruby-2.1.0/wrappers/ruby
-</code></pre>
-</div>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">user_name</span><span class="vi">@linode</span><span class="ss">:~</span><span class="err">$</span> <span class="n">passenger</span><span class="o">-</span><span class="n">config</span> <span class="o">--</span><span class="n">ruby</span><span class="o">-</span><span class="n">command</span>
+<span class="n">passenger</span><span class="o">-</span><span class="n">config</span> <span class="n">was</span> <span class="n">invoked</span> <span class="n">through</span> <span class="n">the</span> <span class="n">following</span> <span class="no">Ruby</span> <span class="ss">interpreter:
+  </span><span class="no">Command</span><span class="p">:</span> <span class="sr">/home/use</span><span class="n">r_name</span><span class="o">/</span><span class="p">.</span><span class="nf">rvm</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">ruby</span><span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">wrappers</span><span class="o">/</span><span class="n">ruby</span>
+  <span class="no">Version</span><span class="p">:</span> <span class="n">ruby</span> <span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="n">p0</span> <span class="p">(</span><span class="mi">2013</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">25</span> <span class="n">revision</span> <span class="mi">44422</span><span class="p">)</span> <span class="p">[</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="p">]</span>
+  <span class="no">To</span> <span class="n">use</span> <span class="k">in</span> <span class="no">Apache</span><span class="p">:</span> <span class="no">PassengerRuby</span> <span class="sr">/home/use</span><span class="n">r_name</span><span class="o">/</span><span class="p">.</span><span class="nf">rvm</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">ruby</span><span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">wrappers</span><span class="o">/</span><span class="n">ruby</span>
+  <span class="no">To</span> <span class="n">use</span> <span class="k">in</span> <span class="no">Nginx</span> <span class="p">:</span> <span class="n">passenger_ruby</span> <span class="sr">/home/use</span><span class="n">r_name</span><span class="o">/</span><span class="p">.</span><span class="nf">rvm</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">ruby</span><span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">wrappers</span><span class="o">/</span><span class="n">ruby</span>
+  <span class="no">To</span> <span class="n">use</span> <span class="n">with</span> <span class="no">Standalone</span><span class="p">:</span> <span class="sr">/home/use</span><span class="n">r_name</span><span class="o">/</span><span class="p">.</span><span class="nf">rvm</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">ruby</span><span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">wrappers</span><span class="o">/</span><span class="n">ruby</span> <span class="sr">/usr/</span><span class="n">bin</span><span class="o">/</span><span class="n">passenger</span> <span class="n">start</span></code></pre></figure>
 
-<p>Update the file /etc/nginx/sites-enabled/default to have the below content
-``` ruby /etc/nginx/sites-enabled/default
-server {
-        listen 80 default_server;
-        listen [::]:80 default_server ipv6only=on;</p>
+<p>Open file /etc/nginx/nginx.conf and uncomment and set passenger_root, passenger_ruby</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    server_name your_domain_name.com;
-    passenger_enabled on;
-    rails_env production;
-    root /home/user_name/myapp/current/public;
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">##</span>
+<span class="c1"># Phusion Passenger</span>
+<span class="c1">##</span>
+<span class="c1"># Uncomment it if you installed ruby-passenger or ruby-passenger-enterprise</span>
+<span class="c1">##</span>
 
-    error_page 500 502 503 504  /50x.html;
-    location = /50.x.html {
-        root html;
-    } } ```
-</code></pre>
-</div>
+<span class="n">passenger_root</span> <span class="sr">/usr/</span><span class="n">lib</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="n">vendor_ruby</span><span class="o">/</span><span class="n">phusion_passenger</span><span class="o">/</span><span class="n">locations</span><span class="p">.</span><span class="nf">ini</span><span class="p">;</span>
+<span class="n">passenger_ruby</span> <span class="sr">/home/use</span><span class="n">r_name</span><span class="o">/</span><span class="p">.</span><span class="nf">rvm</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">ruby</span><span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">wrappers</span><span class="o">/</span><span class="n">ruby</span></code></pre></figure>
+
+<p>Update the file /etc/nginx/sites-enabled/default to have the below content</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">server</span> <span class="p">{</span>
+  <span class="n">listen</span> <span class="mi">80</span> <span class="n">default_server</span><span class="p">;</span>
+  <span class="n">listen</span> <span class="p">[</span><span class="o">::</span><span class="p">]:</span><span class="mi">80</span> <span class="n">default_server</span> <span class="n">ipv6only</span><span class="o">=</span><span class="n">on</span><span class="p">;</span>
+
+  <span class="n">server_name</span> <span class="n">your_domain_name</span><span class="p">.</span><span class="nf">com</span><span class="p">;</span>
+  <span class="n">passenger_enabled</span> <span class="n">on</span><span class="p">;</span>
+  <span class="n">rails_env</span> <span class="n">production</span><span class="p">;</span>
+  <span class="n">root</span> <span class="sr">/home/use</span><span class="n">r_name</span><span class="o">/</span><span class="n">myapp</span><span class="o">/</span><span class="n">current</span><span class="o">/</span><span class="kp">public</span><span class="p">;</span>
+
+  <span class="n">error_page</span> <span class="mi">500</span> <span class="mi">502</span> <span class="mi">503</span> <span class="mi">504</span>  <span class="o">/</span><span class="mi">50</span><span class="n">x</span><span class="p">.</span><span class="nf">html</span><span class="p">;</span>
+  <span class="n">location</span> <span class="o">=</span> <span class="sr">/50.x.html {
+    root html;
+  }
+}</span></code></pre></figure>
 
 <h2 id="installing-mysql-on-server">Installing MySql on Server</h2>
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">mysql</span><span class="o">-</span><span class="n">server</span> <span class="n">mysql</span><span class="o">-</span><span class="n">client</span> <span class="n">libmysqlclient</span><span class="o">-</span><span class="n">dev</span>
-</code></pre>
-</div>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">mysql</span><span class="o">-</span><span class="n">server</span> <span class="n">mysql</span><span class="o">-</span><span class="n">client</span> <span class="n">libmysqlclient</span><span class="o">-</span><span class="n">dev</span></code></pre></figure>
 
 <h2 id="create-a-new-ruby-on-rails-application-on-your-local-boxcomputer">Create a new Ruby on Rails application on your local box/computer</h2>
 
 <p>Install the latest ruby version 2.1.0 via rvm</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="n">rvm</span> <span class="n">install</span> <span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span>
-</code></pre>
-</div>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">rvm</span> <span class="n">install</span> <span class="mi">2</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">0</span></code></pre></figure>
 
-<p>Install the latest rails version 4.0.2
-<code class="highlighter-rouge">ruby
-gem install rails
-</code></p>
+<p>Install the latest rails version 4.0.2</p>
 
-<p>Create a new rails app with mysql database
-<code class="highlighter-rouge">ruby
-rails new myapp -d=mysql
-</code></p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="n">install</span> <span class="n">rails</span></code></pre></figure>
 
-<p>Lets create a controller and setup routes for root path
-<code class="highlighter-rouge">ruby
-rails g controller Pages index
-</code></p>
+<p>Create a new rails app with mysql database</p>
 
-<p>Update config/routes.rb
-<code class="highlighter-rouge">ruby config/routes.rb
-Myapp::Application.routes.draw do
-  root to: 'pages#index'
-end
-</code></p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">rails</span> <span class="kp">new</span> <span class="n">myapp</span> <span class="o">-</span><span class="n">d</span><span class="o">=</span><span class="n">mysql</span></code></pre></figure>
 
-<p>Update Gemfile to add the gems needed for Capistrano
-<code class="highlighter-rouge">ruby Gemfile
-gem 'capistrano'
-gem 'capistrano-bundler'
-gem 'capistrano-rails'
-gem 'capistrano-rvm'
-</code></p>
+<p>Lets create a controller and setup routes for root path</p>
 
-<p>Modify config/database.yml to look like below
-``` ruby config/database.yml
-development:
-  adapter: mysql2
-  encoding: utf8
-  database: myapp_development
-  pool: 5
-  username: root
-  password:
-  socket: /tmp/mysql.sock</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">rails</span> <span class="n">g</span> <span class="n">controller</span> <span class="no">Pages</span> <span class="n">index</span></code></pre></figure>
 
-<p>test:
-  adapter: mysql2
-  encoding: utf8
-  database: myapp_test
-  pool: 5
-  username: root
-  password:
-  socket: /tmp/mysql.sock</p>
+<p>Update config/routes.rb</p>
 
-<p>production:
-  adapter: mysql2
-  encoding: utf8
-  database: myapp_production
-  pool: 5
-  username: root
-  password:
-```</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Myapp</span><span class="o">::</span><span class="no">Application</span><span class="p">.</span><span class="nf">routes</span><span class="p">.</span><span class="nf">draw</span> <span class="k">do</span>
+  <span class="n">root</span> <span class="ss">to: </span><span class="s1">'pages#index'</span>
+<span class="k">end</span></code></pre></figure>
 
-<p>Bundle and create files needed for Capistrano
-<code class="highlighter-rouge">ruby On command line
-bundle --binstubs
-cap install STAGES=production
-</code></p>
+<p>Update Gemfile to add the gems needed for Capistrano</p>
 
-<p>Modify Capfile to look as below
-<code class="highlighter-rouge">ruby Capfile
-require 'capistrano/setup'
-require 'capistrano/deploy'
-require 'capistrano/rvm'
-require 'capistrano/bundler'
-require 'capistrano/rails'
-set :rvm_type, :user
-set :rvm_ruby_version, '2.1.0'
-Dir.glob('lib/capistrano/tasks/*.cap').each { |r| import r }
-</code></p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="s1">'capistrano'</span>
+<span class="n">gem</span> <span class="s1">'capistrano-bundler'</span>
+<span class="n">gem</span> <span class="s1">'capistrano-rails'</span>
+<span class="n">gem</span> <span class="s1">'capistrano-rvm'</span></code></pre></figure>
+
+<p>Modify config/database.yml to look like below</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="ss">development:
+  adapter: </span><span class="n">mysql2</span>
+  <span class="ss">encoding: </span><span class="n">utf8</span>
+  <span class="ss">database: </span><span class="n">myapp_development</span>
+  <span class="ss">pool: </span><span class="mi">5</span>
+  <span class="ss">username: </span><span class="n">root</span>
+  <span class="ss">password:
+  socket: </span><span class="sr">/tmp/m</span><span class="n">ysql</span><span class="p">.</span><span class="nf">sock</span>
+
+<span class="ss">test:
+  adapter: </span><span class="n">mysql2</span>
+  <span class="ss">encoding: </span><span class="n">utf8</span>
+  <span class="ss">database: </span><span class="n">myapp_test</span>
+  <span class="ss">pool: </span><span class="mi">5</span>
+  <span class="ss">username: </span><span class="n">root</span>
+  <span class="ss">password:
+  socket: </span><span class="sr">/tmp/m</span><span class="n">ysql</span><span class="p">.</span><span class="nf">sock</span>
+
+<span class="ss">production:
+  adapter: </span><span class="n">mysql2</span>
+  <span class="ss">encoding: </span><span class="n">utf8</span>
+  <span class="ss">database: </span><span class="n">myapp_production</span>
+  <span class="ss">pool: </span><span class="mi">5</span>
+  <span class="ss">username: </span><span class="n">root</span>
+  <span class="n">password</span><span class="p">:</span></code></pre></figure>
+
+<p>Bundle and create files needed for Capistrano</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">bundle</span> <span class="o">--</span><span class="n">binstubs</span>
+<span class="n">cap</span> <span class="n">install</span> <span class="no">STAGES</span><span class="o">=</span><span class="n">production</span></code></pre></figure>
+
+<p>Modify Capfile to look as below</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">'capistrano/setup'</span>
+<span class="nb">require</span> <span class="s1">'capistrano/deploy'</span>
+<span class="nb">require</span> <span class="s1">'capistrano/rvm'</span>
+<span class="nb">require</span> <span class="s1">'capistrano/bundler'</span>
+<span class="nb">require</span> <span class="s1">'capistrano/rails'</span>
+<span class="n">set</span> <span class="ss">:rvm_type</span><span class="p">,</span> <span class="ss">:user</span>
+<span class="n">set</span> <span class="ss">:rvm_ruby_version</span><span class="p">,</span> <span class="s1">'2.1.0'</span>
+<span class="no">Dir</span><span class="p">.</span><span class="nf">glob</span><span class="p">(</span><span class="s1">'lib/capistrano/tasks/*.cap'</span><span class="p">).</span><span class="nf">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">r</span><span class="o">|</span> <span class="n">import</span> <span class="n">r</span> <span class="p">}</span></code></pre></figure>
 
 <p>Modify config/deploy.rb to look as below<br />
-<em>update repo_url below with the correct github repo url</em>
-``` ruby config/deploy.rb
-lock ‘3.1.0’</p>
+<em>update repo_url below with the correct github repo url</em></p>
 
-<p>set :application, ‘myapp’
-set :repo_url, ‘git@github.com:github_user_name/myapp.git’
-set :deploy_to, ‘/home/user_name/myapp’
-# set :linked_files, %w{config/database.yml}
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
-namespace :deploy do</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">lock</span> <span class="s1">'3.1.0'</span>
 
-<p>desc ‘Restart application’
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute :touch, release_path.join(‘tmp/restart.txt’)
-    end
-  end</p>
+<span class="n">set</span> <span class="ss">:application</span><span class="p">,</span> <span class="s1">'myapp'</span>
+<span class="n">set</span> <span class="ss">:repo_url</span><span class="p">,</span> <span class="s1">'git@github.com:github_user_name/myapp.git'</span>
+<span class="n">set</span> <span class="ss">:deploy_to</span><span class="p">,</span> <span class="s1">'/home/user_name/myapp'</span>
+<span class="c1"># set :linked_files, %w{config/database.yml}</span>
+<span class="n">set</span> <span class="ss">:linked_dirs</span><span class="p">,</span> <span class="sx">%w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}</span>
+<span class="n">namespace</span> <span class="ss">:deploy</span> <span class="k">do</span>
 
-<p>after :finishing, ‘deploy:cleanup’
-end
-```</p>
+  <span class="n">desc</span> <span class="s1">'Restart application'</span>
+  <span class="n">task</span> <span class="ss">:restart</span> <span class="k">do</span>
+    <span class="n">on</span> <span class="n">roles</span><span class="p">(</span><span class="ss">:app</span><span class="p">),</span> <span class="ss">in: :sequence</span><span class="p">,</span> <span class="ss">wait: </span><span class="mi">5</span> <span class="k">do</span>
+      <span class="n">execute</span> <span class="ss">:touch</span><span class="p">,</span> <span class="n">release_path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s1">'tmp/restart.txt'</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
 
-<p>Modify config/deploy/production.rb to look as below
-``` ruby config/deploy/production.rb
-role :app, %w{user_name@IPADDRESS}
-role :web, %w{user_name@IPADDRESS}
-role :db,  %w{user_name@IPADDRESS}</p>
+  <span class="n">after</span> <span class="ss">:finishing</span><span class="p">,</span> <span class="s1">'deploy:cleanup'</span>
+<span class="k">end</span></code></pre></figure>
 
-<p>set :stage, :production</p>
+<p>Modify config/deploy/production.rb to look as below</p>
 
-<p>server ‘IPADDRESS’, user: ‘user_name’, roles: %w{web app}, my_property: :my_value
-```</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">role</span> <span class="ss">:app</span><span class="p">,</span> <span class="sx">%w{user_name@IPADDRESS}</span>
+<span class="n">role</span> <span class="ss">:web</span><span class="p">,</span> <span class="sx">%w{user_name@IPADDRESS}</span>
+<span class="n">role</span> <span class="ss">:db</span><span class="p">,</span>  <span class="sx">%w{user_name@IPADDRESS}</span>
 
-<p>Create database on server
-<code class="highlighter-rouge">ruby
-mysql -uroot -p
-Enter password: (enter password you entered when you installed mysql)
-mysql&gt; CREATE DATABASE myapp_production;
-</code></p>
+<span class="n">set</span> <span class="ss">:stage</span><span class="p">,</span> <span class="ss">:production</span>
 
-<p>Deploying app on server
-<code class="highlighter-rouge">ruby
-cap production deploy
-</code></p>
+<span class="n">server</span> <span class="s1">'IPADDRESS'</span><span class="p">,</span> <span class="ss">user: </span><span class="s1">'user_name'</span><span class="p">,</span> <span class="ss">roles: </span><span class="sx">%w{web app}</span><span class="p">,</span> <span class="ss">my_property: :my_value</span></code></pre></figure>
+
+<p>Create database on server</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">mysql</span> <span class="o">-</span><span class="n">uroot</span> <span class="o">-</span><span class="nb">p</span>
+<span class="no">Enter</span> <span class="ss">password: </span><span class="p">(</span><span class="n">enter</span> <span class="n">password</span> <span class="n">you</span> <span class="n">entered</span> <span class="k">when</span> <span class="n">you</span> <span class="n">installed</span> <span class="n">mysql</span><span class="p">)</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="no">CREATE</span> <span class="no">DATABASE</span> <span class="n">myapp_production</span><span class="p">;</span></code></pre></figure>
+
+<p>Deploying app on server</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">cap</span> <span class="n">production</span> <span class="n">deploy</span></code></pre></figure>
 
 <p>Now we have completed everything to deploy our Rails app on a Linux Virtual Server.</p>
 
