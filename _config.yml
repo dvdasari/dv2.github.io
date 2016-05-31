@@ -20,3 +20,6 @@ github_username:  dv2
 
 # Build settings
 markdown: kramdown
+
+gems:
+  - jekyll-gist

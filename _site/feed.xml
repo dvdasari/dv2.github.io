@@ -6,9 +6,145 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 30 May 2016 16:38:32 -0500</pubDate>
-    <lastBuildDate>Mon, 30 May 2016 16:38:32 -0500</lastBuildDate>
+    <pubDate>Mon, 30 May 2016 21:33:16 -0500</pubDate>
+    <lastBuildDate>Mon, 30 May 2016 21:33:16 -0500</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Setup Sidekiq in production using VLAD</title>
+        <description>&lt;p&gt;Here is the official documentation for Sidekiq deployment 
+ — &lt;a href=&quot;https://github.com/mperham/sidekiq/wiki/Deployment&quot;&gt;https://github.com/mperham/sidekiq/wiki/Deployment&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Add sidekiq to Gemfile&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;‘&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sidekiq&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;‘&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Create the file &lt;code class=&quot;highlighter-rouge&quot;&gt;config/initializers/sidekiq.rb&lt;/code&gt;&lt;/p&gt;
+&lt;noscript&gt;&lt;pre&gt;if Rails.env.production?
+  Sidekiq.configure_server do |config|
+    config.redis = { :url =&amp;gt; &amp;#39;redis://10.0.WX.YZ:6379/12&amp;#39;, :namespace =&amp;gt; &amp;#39;sidekiq&amp;#39; }
+  end
+
+  Sidekiq.configure_client do |config|
+    config.redis = { :url =&amp;gt; &amp;#39;redis://10.0.WX.YZ:6379/12&amp;#39;, :namespace =&amp;gt; &amp;#39;sidekiq&amp;#39; }
+  end
+end&lt;/pre&gt;&lt;/noscript&gt;
+&lt;script src=&quot;https://gist.github.com/dv2/6e1ea0e69d0050581fb8.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;Vlad &lt;code class=&quot;highlighter-rouge&quot;&gt;config/deploy.rb&lt;/code&gt;&lt;/p&gt;
+&lt;noscript&gt;&lt;pre&gt;require &amp;#39;vlad/sidekiq&amp;#39;
+
+task &amp;quot;vlad:deploy&amp;quot; =&amp;gt; %w[
+  vlad:update
+  vlad:bundle:install
+  vlad:migrate
+  vlad:assets:precompile
+  vlad:sidekiq:restart
+  vlad:start_app
+  vlad:cleanup
+]&lt;/pre&gt;&lt;/noscript&gt;
+&lt;script src=&quot;https://gist.github.com/dv2/7c4662583761baf11001.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;On the server create files&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/init/sidekiq.conf&lt;/code&gt;&lt;/p&gt;
+&lt;noscript&gt;&lt;pre&gt;# /etc/init/sidekiq.conf - Sidekiq config
+
+# This example config should work with Ubuntu 12.04+.  It
+# allows you to manage multiple Sidekiq instances with
+# Upstart, Ubuntu&amp;#39;s native service management tool.
+#
+# See workers.conf for how to manage all Sidekiq instances at once.
+#
+# Save this config as /etc/init/sidekiq.conf then mange sidekiq with:
+#   sudo start sidekiq index=0
+#   sudo stop sidekiq index=0
+#   sudo status sidekiq index=0
+#
+# or use the service command:
+#   sudo service sidekiq {start,stop,restart,status}
+#
+
+description &amp;quot;Sidekiq Background Worker&amp;quot;
+
+# no &amp;quot;start on&amp;quot;, we don&amp;#39;t want to automatically start
+stop on (stopping workers or runlevel [06])
+
+# change to match your deployment user
+setuid user_name
+setgid user_name
+
+respawn
+respawn limit 3 30
+
+# TERM is sent by sidekiqctl when stopping sidekiq.  Without declaring these as normal exit codes, it just respawns.
+normal exit 0 TERM
+
+instance $index
+
+script
+# this script runs in /bin/sh by default
+# respawn as bash so we can source in rbenv
+exec /bin/bash &amp;lt;&amp;lt;EOT
+  # use syslog for logging
+  exec &amp;amp;&amp;gt; /dev/kmsg
+
+  # pull in system rbenv
+  # export HOME=/home/deploy
+  # source /etc/profile.d/rbenv.sh
+
+  # cd /opt/theclymb/current
+  cd /home/user_name/srv/current
+  exec bin/sidekiq -i ${index} -e production
+EOT
+end script&lt;/pre&gt;&lt;/noscript&gt;
+&lt;script src=&quot;https://gist.github.com/dv2/7072761632fc88209dbc.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/init/workers.conf&lt;/code&gt;&lt;/p&gt;
+&lt;noscript&gt;&lt;pre&gt;# /etc/init/workers.conf - manage a set of Sidekiqs
+
+# This example config should work with Ubuntu 12.04+.  It
+# allows you to manage multiple Sidekiq instances with
+# Upstart, Ubuntu&amp;#39;s native service management tool.
+#
+# See sidekiq.conf for how to manage a single Sidekiq instance.
+#
+# Use &amp;quot;stop workers&amp;quot; to stop all Sidekiq instances.
+# Use &amp;quot;start workers&amp;quot; to start all instances.
+# Use &amp;quot;restart workers&amp;quot; to restart all instances.
+# Crazy, right?
+#
+
+description &amp;quot;manages the set of sidekiq processes&amp;quot;
+
+# This starts upon bootup and stops on shutdown
+start on runlevel [2345]
+stop on runlevel [06]
+
+# Set this to the number of Sidekiq processes you want
+# to run on this machine
+env NUM_WORKERS=2
+
+pre-start script
+  for i in `seq 0 $((${NUM_WORKERS} - 1))`
+  do
+    start sidekiq index=$i
+  done
+end script&lt;/pre&gt;&lt;/noscript&gt;
+&lt;script src=&quot;https://gist.github.com/dv2/ed710898437287eef1df.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;To deploy: &lt;code class=&quot;highlighter-rouge&quot;&gt;bundle exec rake vlad:deploy&lt;/code&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 08 Sep 2014 19:35:03 -0500</pubDate>
+        <link>http://localhost:4000/sidekiq/vlad/2014/09/08/setup-sidekiq-in-production-using-vlad.html</link>
+        <guid isPermaLink="true">http://localhost:4000/sidekiq/vlad/2014/09/08/setup-sidekiq-in-production-using-vlad.html</guid>
+        
+        
+        <category>sidekiq</category>
+        
+        <category>vlad</category>
+        
+      </item>
     
       <item>
         <title>How to check cron job logs?</title>
