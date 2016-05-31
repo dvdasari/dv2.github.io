@@ -5,7 +5,7 @@ date:   2015-04-17 19:35:03 -0500
 categories: sphinx thinking sphinx
 ---
 
-![Sphinx]({{ site_url }}/assets/sphinx.png)
+![Sphinx]({{ site_url }}/assets/sphinx.png){: .center-image }
 
 For installing Sphinx and setting up Thinking Sphinx for a Ruby on Rails project, go to this link: [http://pat.github.io/thinking-sphinx/](http://pat.github.io/thinking-sphinx/)
 
