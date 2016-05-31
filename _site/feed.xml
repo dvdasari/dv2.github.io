@@ -4,11 +4,111 @@
     <title>DV Dasari</title>
     <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
 </description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 30 May 2016 21:33:16 -0500</pubDate>
-    <lastBuildDate>Mon, 30 May 2016 21:33:16 -0500</lastBuildDate>
+    <link>http://dasari.me/</link>
+    <atom:link href="http://dasari.me/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 30 May 2016 21:49:26 -0500</pubDate>
+    <lastBuildDate>Mon, 30 May 2016 21:49:26 -0500</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Search across all git branches</title>
+        <description>&lt;p&gt;I was looking for a way to search within all the git branches for some text and here is how I ended up doing that. I wrote a ruby program that I run inside the git repo.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;ruby&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gitsearch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;noscript&gt;&lt;pre&gt;# ruby gitsearch.rb
+
+search_term = &amp;quot;elasticsearch&amp;quot;
+file_types = &amp;quot;*.rb&amp;quot;
+
+`echo &amp;quot;\n############################&amp;quot; &amp;gt;&amp;gt; search_results.txt`
+`echo &amp;quot;Search Term: #{search_term}&amp;quot; &amp;gt;&amp;gt; search_results.txt`
+`echo &amp;quot;File Types: #{file_types}&amp;quot; &amp;gt;&amp;gt; search_results.txt`
+`echo &amp;quot;############################\n&amp;quot; &amp;gt;&amp;gt; search_results.txt`
+
+git_branches = `git branch`.split
+git_branches.delete(&amp;#39;*&amp;#39;)
+git_branches.each_with_index do |branch_name, ind|
+  puts &amp;quot;\n#{ind + 1 } branch_name: #{branch_name}&amp;quot;
+  print `git grep -e #{search_term} #{branch_name} -- &amp;#39;#{file_types}&amp;#39;`
+  `git grep -e #{search_term} #{branch_name} -- &amp;#39;#{file_types}&amp;#39; &amp;gt;&amp;gt; search_results.txt`
+end
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;script src=&quot;https://gist.github.com/dv2/ac6369d8653a2a7b3eca.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;Search results/output of the program is displayed in the terminal as well as written to the file ‘search_results.txt’&lt;/p&gt;
+
+&lt;p&gt;Output in the file looks as below:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;############################
+Search Term: elasticsearch
+File Types: *.rb
+############################
+add_fulltext_search:config/initializers/tire.rb:log_file = Rails.root.join “log”, “elasticsearch_#{Rails.env}.log”
+add_fulltext_search:spec/spec_helper.rb: puts “2. elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml “
+calculate_estimates:config/initializers/tire.rb:log_file = Rails.root.join “log”, “elasticsearch_#{Rails.env}.log”
+calculate_estimates:spec/spec_helper.rb: puts “2. elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml “
+add_blog_posts:config/initializers/tire.rb:log_file = Rails.root.join “log”, “elasticsearch_#{Rails.env}.log”
+add_blog_posts:spec/spec_helper.rb: puts “2. elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml “
+add_blog_posts_refactor:config/initializers/tire.rb:log_file = Rails.root.join “log”, “elasticsearch_#{Rails.env}.log”
+add_blog_posts_refactor:spec/spec_helper.rb: puts “2. elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml “
+cron_jobs:config/initializers/tire.rb:log_file = Rails.root.join “log”, “elasticsearch_#{Rails.env}.log”
+cron_jobs:spec/spec_helper.rb: puts “2. elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml “
+download_buttons:config/initializers/tire.rb:log_file = Rails.root.join “log”, “elasticsearch_#{Rails.env}.log”
+download_buttons:spec/spec_helper.rb: puts “2. elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml “
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Mon, 22 Sep 2014 19:35:03 -0500</pubDate>
+        <link>http://dasari.me/search/git/branches/2014/09/22/search-for-text-across-all-git-branches.html</link>
+        <guid isPermaLink="true">http://dasari.me/search/git/branches/2014/09/22/search-for-text-across-all-git-branches.html</guid>
+        
+        
+        <category>search</category>
+        
+        <category>git</category>
+        
+        <category>branches</category>
+        
+      </item>
+    
+      <item>
+        <title>Setting up Sphinx in a Ruby on Rails application</title>
+        <description>&lt;p&gt;Thinking Sphinx — &lt;a href=&quot;http://pat.github.io/thinking-sphinx/&quot;&gt;http://pat.github.io/thinking-sphinx/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Installing Sphinx -  &lt;a href=&quot;http://pat.github.io/thinking-sphinx/installing_sphinx.html&quot;&gt;http://pat.github.io/thinking-sphinx/installing_sphinx.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Installing on MacOS X - &lt;a href=&quot;http://pat.github.io/thinking-sphinx/installing_sphinx/mac.html&quot;&gt;http://pat.github.io/thinking-sphinx/installing_sphinx/mac.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Using Homebrew: &lt;code class=&quot;highlighter-rouge&quot;&gt;brew install sphinx&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Add ‘thinking-sphinx’ to Gemfile - &lt;a href=&quot;https://github.com/pat/thinking-sphinx&quot;&gt;https://github.com/pat/thinking-sphinx&lt;/a&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;‘&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;thinking&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sphinx&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;‘&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;bundle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Quick Start Quide — &lt;a href=&quot;http://pat.github.io/thinking-sphinx/quickstart.html&quot;&gt;http://pat.github.io/thinking-sphinx/quickstart.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;rake&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ts&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rake&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ts&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Run&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Sphinx&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rake&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ts&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:rebuild&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rebuild&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;indexes&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+</description>
+        <pubDate>Tue, 16 Sep 2014 19:35:03 -0500</pubDate>
+        <link>http://dasari.me/sphinx/ruby/on/rails/2014/09/16/setting-up-sphinx-in-ruby-on-rais-app.html</link>
+        <guid isPermaLink="true">http://dasari.me/sphinx/ruby/on/rails/2014/09/16/setting-up-sphinx-in-ruby-on-rais-app.html</guid>
+        
+        
+        <category>sphinx</category>
+        
+        <category>ruby</category>
+        
+        <category>on</category>
+        
+        <category>rails</category>
+        
+      </item>
     
       <item>
         <title>Setup Sidekiq in production using VLAD</title>
@@ -136,8 +236,8 @@ end script&lt;/pre&gt;&lt;/noscript&gt;
 &lt;p&gt;To deploy: &lt;code class=&quot;highlighter-rouge&quot;&gt;bundle exec rake vlad:deploy&lt;/code&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 08 Sep 2014 19:35:03 -0500</pubDate>
-        <link>http://localhost:4000/sidekiq/vlad/2014/09/08/setup-sidekiq-in-production-using-vlad.html</link>
-        <guid isPermaLink="true">http://localhost:4000/sidekiq/vlad/2014/09/08/setup-sidekiq-in-production-using-vlad.html</guid>
+        <link>http://dasari.me/sidekiq/vlad/2014/09/08/setup-sidekiq-in-production-using-vlad.html</link>
+        <guid isPermaLink="true">http://dasari.me/sidekiq/vlad/2014/09/08/setup-sidekiq-in-production-using-vlad.html</guid>
         
         
         <category>sidekiq</category>
@@ -163,8 +263,8 @@ Now the cron logs appear in &lt;code class=&quot;highlighter-rouge&quot;&gt;/var
 in crontab at the end of the task add &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&amp;gt; /tmp/cron.log 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 01 Jul 2014 18:34:23 -0500</pubDate>
-        <link>http://localhost:4000/jekyll/update/2014/07/01/how-to-check-cron-job-logs.html</link>
-        <guid isPermaLink="true">http://localhost:4000/jekyll/update/2014/07/01/how-to-check-cron-job-logs.html</guid>
+        <link>http://dasari.me/jekyll/update/2014/07/01/how-to-check-cron-job-logs.html</link>
+        <guid isPermaLink="true">http://dasari.me/jekyll/update/2014/07/01/how-to-check-cron-job-logs.html</guid>
         
         
         <category>jekyll</category>
@@ -188,9 +288,9 @@ domain2.com&lt;br /&gt;
 domain3.com&lt;/p&gt;
 
 &lt;p&gt;First we will setup our DNS records for each of the domains. Here is how they look.
-&lt;img src=&quot;http://localhost:4000/assets/nginx_domain1.png&quot; alt=&quot;Nginx Domain&quot; /&gt;
-&lt;img src=&quot;http://localhost:4000/assets/nginx_domain2.png&quot; alt=&quot;Nginx Domain&quot; /&gt;
-&lt;img src=&quot;http://localhost:4000/assets/nginx_domain3.png&quot; alt=&quot;Nginx Domain&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;http://dasari.me/assets/nginx_domain1.png&quot; alt=&quot;Nginx Domain&quot; /&gt;
+&lt;img src=&quot;http://dasari.me/assets/nginx_domain2.png&quot; alt=&quot;Nginx Domain&quot; /&gt;
+&lt;img src=&quot;http://dasari.me/assets/nginx_domain3.png&quot; alt=&quot;Nginx Domain&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;I have shown how to deploy a Ruby on Rails app in my previous post - &lt;a href=&quot;/2014/01/26/deploy-ruby-on-rails-to-linode-on-ubuntu-12-dot-04/&quot;&gt;Deploy Ruby on Rails 4 Application on Ubuntu 12.04 With Nginx and Passenger&lt;/a&gt;&lt;/p&gt;
 
@@ -307,8 +407,8 @@ domain3.com&lt;/p&gt;
 
 </description>
         <pubDate>Wed, 29 Jan 2014 00:15:37 -0600</pubDate>
-        <link>http://localhost:4000/2014/01/29/configure-nginx-for-multiple-websites-on-a-vps.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2014/01/29/configure-nginx-for-multiple-websites-on-a-vps.html</guid>
+        <link>http://dasari.me/2014/01/29/configure-nginx-for-multiple-websites-on-a-vps.html</link>
+        <guid isPermaLink="true">http://dasari.me/2014/01/29/configure-nginx-for-multiple-websites-on-a-vps.html</guid>
         
         
       </item>
@@ -339,26 +439,26 @@ domain3.com&lt;/p&gt;
 &lt;p&gt;First &lt;a href=&quot;https://manager.linode.com/signup&quot;&gt;sign up&lt;/a&gt; for a Linode account if you do not have an account already.
 Then &lt;strong&gt;Add a Linode&lt;/strong&gt; and &lt;strong&gt;Select your plan&lt;/strong&gt; from one of the plans available&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/linode_select_your_plan.png&quot; alt=&quot;Select your plan&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://dasari.me/assets/linode_select_your_plan.png&quot; alt=&quot;Select your plan&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;you will have to select &lt;strong&gt;Payment Term&lt;/strong&gt; and &lt;strong&gt;Location&lt;/strong&gt; and &lt;strong&gt;Add this Linode!&lt;/strong&gt; and &lt;strong&gt;Complete Order&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;select-a-linux-distribution&quot;&gt;Select a Linux Distribution&lt;/h3&gt;
 &lt;p&gt;There are a lot of operating systems to choose from, but we will go with Ubuntu 12.04 LTS&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/linode_rebuild_distribution.png&quot; alt=&quot;Rebuild distribution&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://dasari.me/assets/linode_rebuild_distribution.png&quot; alt=&quot;Rebuild distribution&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Click &lt;strong&gt;Rebuild&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Now you have your Linode, but it is initially in a &lt;strong&gt;Powered Off&lt;/strong&gt; state. So Click on &lt;strong&gt;Boot&lt;/strong&gt; to boot your linode.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/linode_boot.png&quot; alt=&quot;Boot&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://dasari.me/assets/linode_boot.png&quot; alt=&quot;Boot&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Give it a few seconds to boot.&lt;/p&gt;
 
 &lt;h3 id=&quot;connecting-to-your-linode&quot;&gt;Connecting to your linode&lt;/h3&gt;
 &lt;p&gt;Click on the &lt;strong&gt;Remote Access&lt;/strong&gt; tab in your account and copy the IP address from the SSH Access field. This is the IP address of your linode.
-&lt;img src=&quot;http://localhost:4000/assets/linode_remote_access.png&quot; alt=&quot;Remote access&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;http://dasari.me/assets/linode_remote_access.png&quot; alt=&quot;Remote access&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;We will connect to our linode via SSH. &lt;br /&gt;
 Mac users can use Terminal or iTerm2&lt;/p&gt;
@@ -641,13 +741,13 @@ sudo add-apt-repository ppa:chris-lea/no&lt;/span&gt;&lt;span class=&quot;n&quot
 
 &lt;p&gt;Open browser and type your domain name or IPADDRESS. You should see the below page&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/linode_deploy_home_page.png&quot; alt=&quot;Deploy home page&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://dasari.me/assets/linode_deploy_home_page.png&quot; alt=&quot;Deploy home page&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;That is all we have to do to deploy a Ruby on Rails application to run on Ubuntu 12.04.&lt;/p&gt;
 </description>
         <pubDate>Sun, 26 Jan 2014 21:13:01 -0600</pubDate>
-        <link>http://localhost:4000/2014/01/26/deploy-ruby-on-rails-to-linode-on-ubuntu-12-dot-04.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2014/01/26/deploy-ruby-on-rails-to-linode-on-ubuntu-12-dot-04.html</guid>
+        <link>http://dasari.me/2014/01/26/deploy-ruby-on-rails-to-linode-on-ubuntu-12-dot-04.html</link>
+        <guid isPermaLink="true">http://dasari.me/2014/01/26/deploy-ruby-on-rails-to-linode-on-ubuntu-12-dot-04.html</guid>
         
         
       </item>
@@ -670,8 +770,8 @@ sudo add-apt-repository ppa:chris-lea/no&lt;/span&gt;&lt;span class=&quot;n&quot
 
 </description>
         <pubDate>Sun, 29 Jan 2012 18:35:03 -0600</pubDate>
-        <link>http://localhost:4000/jekyll/update/2012/01/29/welcome-to-jekyll.html</link>
-        <guid isPermaLink="true">http://localhost:4000/jekyll/update/2012/01/29/welcome-to-jekyll.html</guid>
+        <link>http://dasari.me/jekyll/update/2012/01/29/welcome-to-jekyll.html</link>
+        <guid isPermaLink="true">http://dasari.me/jekyll/update/2012/01/29/welcome-to-jekyll.html</guid>
         
         
         <category>jekyll</category>

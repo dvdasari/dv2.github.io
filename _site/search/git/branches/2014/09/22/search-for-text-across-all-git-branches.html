@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>How to check cron job logs?</title>
-  <meta name="description" content="Option #1: By default cron jobs log to /var/log/syslog You can see them by: grep CRON /var/log/syslog">
+  <title>Search across all git branches</title>
+  <meta name="description" content="I was looking for a way to search within all the git branches for some text and here is how I ended up doing that. I wrote a ruby program that I run inside t...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://dasari.me/jekyll/update/2014/07/01/how-to-check-cron-job-logs.html">
+  <link rel="canonical" href="http://dasari.me/search/git/branches/2014/09/22/search-for-text-across-all-git-branches.html">
   <link rel="alternate" type="application/rss+xml" title="DV Dasari" href="http://dasari.me/feed.xml">
 </head>
 
@@ -57,24 +57,58 @@
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">How to check cron job logs?</h1>
-    <p class="post-meta"><time datetime="2014-07-01T18:34:23-05:00" itemprop="datePublished">Jul 1, 2014</time></p>
+    <h1 class="post-title" itemprop="name headline">Search across all git branches</h1>
+    <p class="post-meta"><time datetime="2014-09-22T19:35:03-05:00" itemprop="datePublished">Sep 22, 2014</time></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>Option #1: <br />
-By default cron jobs log to <code class="highlighter-rouge">/var/log/syslog</code> <br />
-You can see them by: <code class="highlighter-rouge">grep CRON /var/log/syslog</code></p>
+    <p>I was looking for a way to search within all the git branches for some text and here is how I ended up doing that. I wrote a ruby program that I run inside the git repo.</p>
 
-<p>Option #2: <br />
-Open file <code class="highlighter-rouge">/etc/rsyslog.d/50-default.conf</code> <br />
-Find the line that starts with <code class="highlighter-rouge">#cron.* /var/log/cron.log</code> <br />
-Uncomment that line and save the file <br />
-restart rsyslog: <code class="highlighter-rouge">sudo service rsyslog restart</code> <br />
-Now the cron logs appear in <code class="highlighter-rouge">/var/log/cron.log</code> <br /></p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ruby</span> <span class="n">gitsearch</span><span class="p">.</span><span class="nf">rb</span></code></pre></figure>
 
-<p>Option #3: <br />
-in crontab at the end of the task add <code class="highlighter-rouge">&gt;&gt; /tmp/cron.log 2&gt;&amp;1</code></p>
+<noscript><pre># ruby gitsearch.rb
+
+search_term = &quot;elasticsearch&quot;
+file_types = &quot;*.rb&quot;
+
+`echo &quot;\n############################&quot; &gt;&gt; search_results.txt`
+`echo &quot;Search Term: #{search_term}&quot; &gt;&gt; search_results.txt`
+`echo &quot;File Types: #{file_types}&quot; &gt;&gt; search_results.txt`
+`echo &quot;############################\n&quot; &gt;&gt; search_results.txt`
+
+git_branches = `git branch`.split
+git_branches.delete(&#39;*&#39;)
+git_branches.each_with_index do |branch_name, ind|
+  puts &quot;\n#{ind + 1 } branch_name: #{branch_name}&quot;
+  print `git grep -e #{search_term} #{branch_name} -- &#39;#{file_types}&#39;`
+  `git grep -e #{search_term} #{branch_name} -- &#39;#{file_types}&#39; &gt;&gt; search_results.txt`
+end
+</pre></noscript>
+<script src="https://gist.github.com/dv2/ac6369d8653a2a7b3eca.js"> </script>
+
+<p>Search results/output of the program is displayed in the terminal as well as written to the file ‘search_results.txt’</p>
+
+<p>Output in the file looks as below:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>############################
+Search Term: elasticsearch
+File Types: *.rb
+############################
+add_fulltext_search:config/initializers/tire.rb:log_file = Rails.root.join “log”, “elasticsearch_#{Rails.env}.log”
+add_fulltext_search:spec/spec_helper.rb: puts “2. elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml “
+calculate_estimates:config/initializers/tire.rb:log_file = Rails.root.join “log”, “elasticsearch_#{Rails.env}.log”
+calculate_estimates:spec/spec_helper.rb: puts “2. elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml “
+add_blog_posts:config/initializers/tire.rb:log_file = Rails.root.join “log”, “elasticsearch_#{Rails.env}.log”
+add_blog_posts:spec/spec_helper.rb: puts “2. elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml “
+add_blog_posts_refactor:config/initializers/tire.rb:log_file = Rails.root.join “log”, “elasticsearch_#{Rails.env}.log”
+add_blog_posts_refactor:spec/spec_helper.rb: puts “2. elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml “
+cron_jobs:config/initializers/tire.rb:log_file = Rails.root.join “log”, “elasticsearch_#{Rails.env}.log”
+cron_jobs:spec/spec_helper.rb: puts “2. elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml “
+download_buttons:config/initializers/tire.rb:log_file = Rails.root.join “log”, “elasticsearch_#{Rails.env}.log”
+download_buttons:spec/spec_helper.rb: puts “2. elasticsearch -f -D es.config=/usr/local/opt/elasticsearch/config/elasticsearch.yml “
+
+</code></pre>
+</div>
 
   </div>
 

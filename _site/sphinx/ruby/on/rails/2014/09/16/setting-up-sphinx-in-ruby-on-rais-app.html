@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>How to check cron job logs?</title>
-  <meta name="description" content="Option #1: By default cron jobs log to /var/log/syslog You can see them by: grep CRON /var/log/syslog">
+  <title>Setting up Sphinx in a Ruby on Rails application</title>
+  <meta name="description" content="Thinking Sphinx — http://pat.github.io/thinking-sphinx/">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://dasari.me/jekyll/update/2014/07/01/how-to-check-cron-job-logs.html">
+  <link rel="canonical" href="http://dasari.me/sphinx/ruby/on/rails/2014/09/16/setting-up-sphinx-in-ruby-on-rais-app.html">
   <link rel="alternate" type="application/rss+xml" title="DV Dasari" href="http://dasari.me/feed.xml">
 </head>
 
@@ -57,24 +57,30 @@
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">How to check cron job logs?</h1>
-    <p class="post-meta"><time datetime="2014-07-01T18:34:23-05:00" itemprop="datePublished">Jul 1, 2014</time></p>
+    <h1 class="post-title" itemprop="name headline">Setting up Sphinx in a Ruby on Rails application</h1>
+    <p class="post-meta"><time datetime="2014-09-16T19:35:03-05:00" itemprop="datePublished">Sep 16, 2014</time></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>Option #1: <br />
-By default cron jobs log to <code class="highlighter-rouge">/var/log/syslog</code> <br />
-You can see them by: <code class="highlighter-rouge">grep CRON /var/log/syslog</code></p>
+    <p>Thinking Sphinx — <a href="http://pat.github.io/thinking-sphinx/">http://pat.github.io/thinking-sphinx/</a></p>
 
-<p>Option #2: <br />
-Open file <code class="highlighter-rouge">/etc/rsyslog.d/50-default.conf</code> <br />
-Find the line that starts with <code class="highlighter-rouge">#cron.* /var/log/cron.log</code> <br />
-Uncomment that line and save the file <br />
-restart rsyslog: <code class="highlighter-rouge">sudo service rsyslog restart</code> <br />
-Now the cron logs appear in <code class="highlighter-rouge">/var/log/cron.log</code> <br /></p>
+<p>Installing Sphinx -  <a href="http://pat.github.io/thinking-sphinx/installing_sphinx.html">http://pat.github.io/thinking-sphinx/installing_sphinx.html</a></p>
 
-<p>Option #3: <br />
-in crontab at the end of the task add <code class="highlighter-rouge">&gt;&gt; /tmp/cron.log 2&gt;&amp;1</code></p>
+<p>Installing on MacOS X - <a href="http://pat.github.io/thinking-sphinx/installing_sphinx/mac.html">http://pat.github.io/thinking-sphinx/installing_sphinx/mac.html</a></p>
+
+<p>Using Homebrew: <code class="highlighter-rouge">brew install sphinx</code></p>
+
+<p>Add ‘thinking-sphinx’ to Gemfile - <a href="https://github.com/pat/thinking-sphinx">https://github.com/pat/thinking-sphinx</a></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gem</span> <span class="err">‘</span><span class="n">thinking</span><span class="o">-</span><span class="n">sphinx</span><span class="err">’</span><span class="p">,</span> <span class="err">‘</span><span class="o">~&gt;</span> <span class="mi">3</span><span class="o">.</span><span class="mi">1</span><span class="o">.</span><span class="mi">1</span><span class="err">'</span>
+<span class="n">bundle</span> <span class="n">install</span></code></pre></figure>
+
+<p>Quick Start Quide — <a href="http://pat.github.io/thinking-sphinx/quickstart.html">http://pat.github.io/thinking-sphinx/quickstart.html</a></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">rake</span> <span class="n">ts</span><span class="ss">:index</span> <span class="o">==&gt;</span> <span class="n">index</span> <span class="n">data</span>
+<span class="n">rake</span> <span class="n">ts</span><span class="ss">:start</span> <span class="o">==&gt;</span> <span class="no">Run</span> <span class="no">Sphinx</span>
+<span class="n">rake</span> <span class="n">ts</span><span class="ss">:rebuild</span> <span class="o">==&gt;</span> <span class="n">rebuild</span> <span class="n">indexes</span></code></pre></figure>
+
 
   </div>
 
