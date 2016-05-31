@@ -6,9 +6,124 @@
 </description>
     <link>http://dasari.me/</link>
     <atom:link href="http://dasari.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 30 May 2016 22:13:15 -0500</pubDate>
-    <lastBuildDate>Mon, 30 May 2016 22:13:15 -0500</lastBuildDate>
+    <pubDate>Mon, 30 May 2016 22:17:23 -0500</pubDate>
+    <lastBuildDate>Mon, 30 May 2016 22:17:23 -0500</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>Docker Commands</title>
+        <description>&lt;noscript&gt;&lt;pre&gt;1. Create new container  
+   a) docker run -i -t ubuntu /bin/bash
+   b) docker run --name rails_dev_container -i -t ubuntu ubuntu /bin/bash
+   The command line flags - i -t provide an interactive shell in the new container
+
+2. Show running docker containers    ==&amp;gt; docker ps
+
+3. Show list of current containers   ==&amp;gt; 
+   a) docker ps -a   (Show all containers, both stopped and running)
+   b) docker ps -n x (shows the last x containers, running or stopped, ex: docker ps -n 5)
+
+4. Show last container that was run (whether is is running or stopped)  ==&amp;gt; docker ps -l
+
+5. List docker images               ==&amp;gt; docker images
+
+6. Delete a container               
+   a) docker rm &amp;lt;container_id&amp;gt;    (ex: docker rm aa3f365f0f4e)
+   b) docker rm &amp;lt;container_name&amp;gt;  (ex: docker rm rails_dev_container)
+   
+7. Delete all containers            ==&amp;gt; docker rm $(docker ps -a -q)
+
+8. Delete an image                  ==&amp;gt; docker rmi &amp;lt;image_id&amp;gt;
+
+9. Delete all images                ==&amp;gt; docker rmi $(docker images -q)
+
+Start a stopped container
+  a) docker start &amp;lt;container_id&amp;gt;    (ex: docker start aa3f365f0f4e)
+  b) docker start &amp;lt;container_name&amp;gt;  (ex: docker start rails_dev_container)
+  
+Attach to a container
+  a) docker attach &amp;lt;container_id&amp;gt;   (ex: docker attach aa3f365f0f4e)
+  b) docker attach &amp;lt;container_name&amp;gt; (ex: docker attach rails_dev_container)
+
+Creating daemonized containers
+  docker run --name daemon_container -d ubuntu /bin/sh -c &amp;quot;while true; do echo hello world; sleep 1; done&amp;quot;
+  (-d flag detachs the container to the background)
+  
+To see what&amp;#39;s happening inside the container
+  docker logs rails_dev_container
+  docker logs -f rails_dev_container  (like the tail -f)
+  docker logs -ft rails_dev_container (prefix log entries with timestamps)
+  docker logs --tail 10 daemon_container  (get the last 10 lines of the log)
+  docker logs --tail 0 -f daemon_container (follow the logs without having to read the whole log file)
+ 
+Inspecting the container&amp;#39;s processes
+  docker top daemon_container
+
+Running a process inside a container
+  a) Background 
+     docker exec -d daemon_container touch /etc/new_config_file
+  b) Interactive
+     docker exec -t -i daemon_container /bin/bash
+
+Stopping a daemonized container
+  docker stop daemon_container
+  or
+  docker stop aa3f365f0f4e
+
+Automatic container restarts
+  docker run --restart=always --name daemon_container -d ubuntu /bin/sh -c &amp;quot;while true; do echo hello world; sleep 1; done&amp;quot;
+  (docker will try to restart the container no matter what exit code is returned)
+  --restart=on-failure:5 (this will attempt to restart the container a maximum of 5 times if a non-zero exit code is received)
+  
+Finding more about our container
+  docker inspect daemon_container
+  docker inspect --format=&amp;#39;{{ .State.Running }}&amp;#39; daemon_container
+  docker inspect --format &amp;#39;{{ .HostnamePath }}&amp;#39; daemon_container
+  docker inspect --format &amp;#39;{{ .Name }} {{ .HostnamePath }}&amp;#39; daemon_container
+  list multiple containers
+    docker inspect --format &amp;#39;{{ .Name }} {{ .HostnamePath }}&amp;#39; daemon_container dameon_cont_2
+
+Pulling images
+  docker pull ubuntu
+  docker pull fedora
+  docker pull fedora:21
+  docker pull jamtur01/puppetmaster
+
+Searching for images
+  docker search puppet
+
+Sign into the Docker Hub
+  docker login
+  
+Using Docker commit to create images
+  Create a container from the ubuntu image
+    docker run -i -t ubuntu /bin/bash
+  Install Apache into the container
+    apt-get -yqq update
+    apt-get -y install apache2
+  exit from the container 
+    docker commit 6b84282435f8 dvdoc/apache2
+    or
+    docker commit -m=&amp;quot;A new custom image&amp;quot; --author=&amp;quot;DV Suresh&amp;quot; \
+    6b84282435f8 dvdoc/apache2:webserver
+    
+    
+
+
+
+
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;script src=&quot;https://gist.github.com/dv2/439ce7c1814c2392c3bf.js&quot;&gt; &lt;/script&gt;
+
+</description>
+        <pubDate>Tue, 16 Dec 2014 18:35:03 -0600</pubDate>
+        <link>http://dasari.me/docker/2014/12/16/docker-commands.html</link>
+        <guid isPermaLink="true">http://dasari.me/docker/2014/12/16/docker-commands.html</guid>
+        
+        
+        <category>Docker</category>
+        
+      </item>
     
       <item>
         <title>Docker Resources</title>
@@ -30,9 +145,9 @@
 
 &lt;p&gt;&lt;a href=&quot;http://blog.gemnasium.com/post/65599561888/rails-meets-docker&quot;&gt;Rails meets docker&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Wed, 24 Sep 2014 19:35:03 -0500</pubDate>
-        <link>http://dasari.me/docker/2014/09/24/docker-resources.html</link>
-        <guid isPermaLink="true">http://dasari.me/docker/2014/09/24/docker-resources.html</guid>
+        <pubDate>Tue, 16 Dec 2014 18:35:03 -0600</pubDate>
+        <link>http://dasari.me/docker/2014/12/16/docker-resources.html</link>
+        <guid isPermaLink="true">http://dasari.me/docker/2014/12/16/docker-resources.html</guid>
         
         
         <category>Docker</category>

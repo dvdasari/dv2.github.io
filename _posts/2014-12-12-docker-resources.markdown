@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Docker Resources"
-date:   2014-09-24 19:35:03 -0500
+date:   2014-12-16 19:35:03 -0500
 categories: Docker
 ---
 
