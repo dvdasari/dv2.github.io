@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>DV Dasari</title>
-  <meta name="description" content="">
+  <title>How to check cron job logs?</title>
+  <meta name="description" content="Option #1: By default cron jobs log to /var/log/syslog You can see them by: grep CRON /var/log/syslog">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://dasari.me/">
+  <link rel="canonical" href="http://dasari.me/2014/07/01/how-to-check-cron-job-logs.html">
   <link rel="alternate" type="application/rss+xml" title="DV Dasari" href="http://dasari.me/feed.xml">
 </head>
 
@@ -54,121 +54,31 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <div class="home">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
-  <h1 class="page-heading">Posts</h1>
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">How to check cron job logs?</h1>
+    <p class="post-meta"><time datetime="2014-07-01T18:34:23-05:00" itemprop="datePublished">Jul 1, 2014</time></p>
+  </header>
 
-  <ul class="post-list">
-    
-      <li>
-        <span class="post-meta">Jun 3, 2016</span>
+  <div class="post-content" itemprop="articleBody">
+    <p>Option #1: <br />
+By default cron jobs log to <code class="highlighter-rouge">/var/log/syslog</code> <br />
+You can see them by: <code class="highlighter-rouge">grep CRON /var/log/syslog</code></p>
 
-        <h2>
-          <a class="post-link" href="/2016/06/03/keep-your-forked-repository-in-sync-with-upstream-repository.html">How to keep your forked repository in sync with the upstream repository</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Apr 17, 2015</span>
+<p>Option #2: <br />
+Open file <code class="highlighter-rouge">/etc/rsyslog.d/50-default.conf</code> <br />
+Find the line that starts with <code class="highlighter-rouge">#cron.* /var/log/cron.log</code> <br />
+Uncomment that line and save the file <br />
+restart rsyslog: <code class="highlighter-rouge">sudo service rsyslog restart</code> <br />
+Now the cron logs appear in <code class="highlighter-rouge">/var/log/cron.log</code> <br /></p>
 
-        <h2>
-          <a class="post-link" href="/2015/04/17/sphinx-and-thinking-sphinx-commands.html">Sphinx and Thinking Sphinx commands</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Jan 8, 2015</span>
+<p>Option #3: <br />
+in crontab at the end of the task add <code class="highlighter-rouge">&gt;&gt; /tmp/cron.log 2&gt;&amp;1</code></p>
 
-        <h2>
-          <a class="post-link" href="/2015/01/08/replacing-mysql-with-mariadb-on-osx-for-a-ruby-on-rails-app.html">Replacing MySQL with MariaDB on OS X for a Ruby on Rails App</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Dec 19, 2014</span>
+  </div>
 
-        <h2>
-          <a class="post-link" href="/2014/12/19/install-latest-gcc-on-mac-os-x.html">Install latest version of gcc on Mac OS X</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Dec 16, 2014</span>
-
-        <h2>
-          <a class="post-link" href="/2014/12/16/docker-commands.html">Docker Commands</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Dec 16, 2014</span>
-
-        <h2>
-          <a class="post-link" href="/2014/12/16/docker-resources.html">Docker Resources</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Sep 24, 2014</span>
-
-        <h2>
-          <a class="post-link" href="/2014/09/24/arduino-avrdude-stk500-recv-programmer-not-responding.html">Problem uploading to Arduino board — avrdude: stk500_recv(): programmer is not responding</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Sep 22, 2014</span>
-
-        <h2>
-          <a class="post-link" href="/2014/09/22/search-for-text-across-all-git-branches.html">Search across all git branches</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Sep 16, 2014</span>
-
-        <h2>
-          <a class="post-link" href="/2014/09/16/setting-up-sphinx-in-ruby-on-rais-app.html">Setting up Sphinx in a Ruby on Rails application</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Sep 8, 2014</span>
-
-        <h2>
-          <a class="post-link" href="/2014/09/08/setup-sidekiq-in-production-using-vlad.html">Setup Sidekiq in production using VLAD</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Jul 1, 2014</span>
-
-        <h2>
-          <a class="post-link" href="/2014/07/01/how-to-check-cron-job-logs.html">How to check cron job logs?</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Jan 29, 2014</span>
-
-        <h2>
-          <a class="post-link" href="/2014/01/29/configure-nginx-for-multiple-websites-on-a-vps.html">Configure NGINX for multiple websites on a VPS</a>
-        </h2>
-      </li>
-    
-      <li>
-        <span class="post-meta">Jan 26, 2014</span>
-
-        <h2>
-          <a class="post-link" href="/2014/01/26/deploy-ruby-on-rails-to-linode-on-ubuntu-12-dot-04.html">Deploy Ruby On Rails 4 Application on Ubuntu 12.04 with Nginx and Passenger</a>
-        </h2>
-      </li>
-    
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p>
-
-</div>
+</article>
 
       </div>
     </div>

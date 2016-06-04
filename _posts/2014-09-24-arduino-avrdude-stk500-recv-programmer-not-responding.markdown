@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  Problem uploading to Arduino board — avrdude: stk500_recv(): programmer is not responding
+title:  "Problem uploading to Arduino board — avrdude: stk500_recv(): programmer is not responding"
 date:   2014-09-24 19:35:03 -0500
 comments: true
 keywords: Arduino avrdude stk500
-description:  Problem uploading to Arduino board — avrdude: stk500_recv(): programmer is not responding
+description:  "Problem uploading to Arduino board — avrdude: stk500_recv(): programmer is not responding"
 ---
 
 Model: Arduino Uno R3

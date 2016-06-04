@@ -1,0 +1,24 @@
+<p>Model: Arduino Uno R3</p>
+
+<p>A new Arduino comes with a pre-programmed LED blink program. When the Arduino is plugged into your Mac via USB, the LED should flash on and off once a second.</p>
+
+<p>I was very excited to write some code and run it on the Arduino. I started with a change to the blink program and tried to upload. I got an error message at the bottom of the IDE.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Binary sketch size: 1,082 bytes (of a 32,256 byte maximum)
+avrdude: stk500_recv(): programmer is not responding
+</code></pre>
+</div>
+
+<p>Screenshot:</p>
+
+<p><img src="http://dasari.me/assets/arduino_error_screenshot.png" alt="Error Screenshot" /></p>
+
+<p>I did the usual “google the error message”. And read posts where I found that, resetting the Uno and reloading the program would work. So I did as suggested, but got the same error again.</p>
+
+<p>Then I went to the IDE Tool bar and tried to switch to different Serial Port and tried uploading the program. Finally selecting <code class="highlighter-rouge">/dev/tty.usbmodem1411</code> did the trick.</p>
+
+<p>It worked!!!!</p>
+
+<p><img src="http://dasari.me/assets/arduino_ide_toolbar.png" alt="IDE Toolbar" /></p>
+
+<p>Hopefully this post will save time for someone with the same error.</p>

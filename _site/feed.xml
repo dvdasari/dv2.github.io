@@ -5,8 +5,8 @@
     <description></description>
     <link>http://dasari.me/</link>
     <atom:link href="http://dasari.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 03 Jun 2016 23:31:19 -0500</pubDate>
-    <lastBuildDate>Fri, 03 Jun 2016 23:31:19 -0500</lastBuildDate>
+    <pubDate>Fri, 03 Jun 2016 23:55:38 -0500</pubDate>
+    <lastBuildDate>Fri, 03 Jun 2016 23:55:38 -0500</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -71,15 +71,9 @@ git push -f origin branch_name
 &lt;/div&gt;
 </description>
         <pubDate>Fri, 03 Jun 2016 19:35:03 -0500</pubDate>
-        <link>http://dasari.me/git/fork/rebase/2016/06/03/keep-your-forked-repository-in-sync-with-upstream-repository.html</link>
-        <guid isPermaLink="true">http://dasari.me/git/fork/rebase/2016/06/03/keep-your-forked-repository-in-sync-with-upstream-repository.html</guid>
+        <link>http://dasari.me/2016/06/03/keep-your-forked-repository-in-sync-with-upstream-repository.html</link>
+        <guid isPermaLink="true">http://dasari.me/2016/06/03/keep-your-forked-repository-in-sync-with-upstream-repository.html</guid>
         
-        
-        <category>git</category>
-        
-        <category>fork</category>
-        
-        <category>rebase</category>
         
       </item>
     
@@ -152,13 +146,9 @@ indextool --dumpheader article_core
 &lt;/div&gt;
 </description>
         <pubDate>Fri, 17 Apr 2015 19:35:03 -0500</pubDate>
-        <link>http://dasari.me/sphinx/thinking/2015/04/17/sphinx-and-thinking-sphinx-commands.html</link>
-        <guid isPermaLink="true">http://dasari.me/sphinx/thinking/2015/04/17/sphinx-and-thinking-sphinx-commands.html</guid>
+        <link>http://dasari.me/2015/04/17/sphinx-and-thinking-sphinx-commands.html</link>
+        <guid isPermaLink="true">http://dasari.me/2015/04/17/sphinx-and-thinking-sphinx-commands.html</guid>
         
-        
-        <category>sphinx</category>
-        
-        <category>thinking</category>
         
       </item>
     
@@ -190,13 +180,9 @@ $ gem install mysql2 -v=’0.3.17&#39; -- --with-mysql-config=/usr/local/Cellar/
 &lt;/div&gt;
 </description>
         <pubDate>Thu, 08 Jan 2015 18:35:03 -0600</pubDate>
-        <link>http://dasari.me/mysql/mariadb/2015/01/08/replacing-mysql-with-mariadb-on-osx-for-a-ruby-on-rails-app.html</link>
-        <guid isPermaLink="true">http://dasari.me/mysql/mariadb/2015/01/08/replacing-mysql-with-mariadb-on-osx-for-a-ruby-on-rails-app.html</guid>
+        <link>http://dasari.me/2015/01/08/replacing-mysql-with-mariadb-on-osx-for-a-ruby-on-rails-app.html</link>
+        <guid isPermaLink="true">http://dasari.me/2015/01/08/replacing-mysql-with-mariadb-on-osx-for-a-ruby-on-rails-app.html</guid>
         
-        
-        <category>mysql</category>
-        
-        <category>mariadb</category>
         
       </item>
     
@@ -230,11 +216,9 @@ $ ./configure; make; make install
 &lt;/div&gt;
 </description>
         <pubDate>Fri, 19 Dec 2014 18:35:03 -0600</pubDate>
-        <link>http://dasari.me/gcc/2014/12/19/install-latest-gcc-on-mac-os-x.html</link>
-        <guid isPermaLink="true">http://dasari.me/gcc/2014/12/19/install-latest-gcc-on-mac-os-x.html</guid>
+        <link>http://dasari.me/2014/12/19/install-latest-gcc-on-mac-os-x.html</link>
+        <guid isPermaLink="true">http://dasari.me/2014/12/19/install-latest-gcc-on-mac-os-x.html</guid>
         
-        
-        <category>gcc</category>
         
       </item>
     
@@ -345,11 +329,9 @@ Using Docker commit to create images
 
 </description>
         <pubDate>Tue, 16 Dec 2014 18:35:03 -0600</pubDate>
-        <link>http://dasari.me/docker/2014/12/16/docker-commands.html</link>
-        <guid isPermaLink="true">http://dasari.me/docker/2014/12/16/docker-commands.html</guid>
+        <link>http://dasari.me/2014/12/16/docker-commands.html</link>
+        <guid isPermaLink="true">http://dasari.me/2014/12/16/docker-commands.html</guid>
         
-        
-        <category>Docker</category>
         
       </item>
     
@@ -374,11 +356,9 @@ Using Docker commit to create images
 &lt;p&gt;&lt;a href=&quot;http://blog.gemnasium.com/post/65599561888/rails-meets-docker&quot;&gt;Rails meets docker&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 16 Dec 2014 18:35:03 -0600</pubDate>
-        <link>http://dasari.me/docker/2014/12/16/docker-resources.html</link>
-        <guid isPermaLink="true">http://dasari.me/docker/2014/12/16/docker-resources.html</guid>
+        <link>http://dasari.me/2014/12/16/docker-resources.html</link>
+        <guid isPermaLink="true">http://dasari.me/2014/12/16/docker-resources.html</guid>
         
-        
-        <category>Docker</category>
         
       </item>
     
@@ -410,15 +390,9 @@ avrdude: stk500_recv(): programmer is not responding
 &lt;p&gt;Hopefully this post will save time for someone with the same error.&lt;/p&gt;
 </description>
         <pubDate>Wed, 24 Sep 2014 19:35:03 -0500</pubDate>
-        <link>http://dasari.me/arduino/avrdude/stk500/2014/09/24/arduino-avrdude-stk500-recv-programmer-not-responding.html</link>
-        <guid isPermaLink="true">http://dasari.me/arduino/avrdude/stk500/2014/09/24/arduino-avrdude-stk500-recv-programmer-not-responding.html</guid>
+        <link>http://dasari.me/2014/09/24/arduino-avrdude-stk500-recv-programmer-not-responding.html</link>
+        <guid isPermaLink="true">http://dasari.me/2014/09/24/arduino-avrdude-stk500-recv-programmer-not-responding.html</guid>
         
-        
-        <category>Arduino</category>
-        
-        <category>avrdude</category>
-        
-        <category>stk500</category>
         
       </item>
     
@@ -473,15 +447,9 @@ download_buttons:spec/spec_helper.rb: puts “2. elasticsearch -f -D es.config=/
 &lt;/div&gt;
 </description>
         <pubDate>Mon, 22 Sep 2014 19:35:03 -0500</pubDate>
-        <link>http://dasari.me/search/git/branches/2014/09/22/search-for-text-across-all-git-branches.html</link>
-        <guid isPermaLink="true">http://dasari.me/search/git/branches/2014/09/22/search-for-text-across-all-git-branches.html</guid>
+        <link>http://dasari.me/2014/09/22/search-for-text-across-all-git-branches.html</link>
+        <guid isPermaLink="true">http://dasari.me/2014/09/22/search-for-text-across-all-git-branches.html</guid>
         
-        
-        <category>search</category>
-        
-        <category>git</category>
-        
-        <category>branches</category>
         
       </item>
     
@@ -508,17 +476,9 @@ download_buttons:spec/spec_helper.rb: puts “2. elasticsearch -f -D es.config=/
 
 </description>
         <pubDate>Tue, 16 Sep 2014 19:35:03 -0500</pubDate>
-        <link>http://dasari.me/sphinx/ruby/on/rails/2014/09/16/setting-up-sphinx-in-ruby-on-rais-app.html</link>
-        <guid isPermaLink="true">http://dasari.me/sphinx/ruby/on/rails/2014/09/16/setting-up-sphinx-in-ruby-on-rais-app.html</guid>
+        <link>http://dasari.me/2014/09/16/setting-up-sphinx-in-ruby-on-rais-app.html</link>
+        <guid isPermaLink="true">http://dasari.me/2014/09/16/setting-up-sphinx-in-ruby-on-rais-app.html</guid>
         
-        
-        <category>sphinx</category>
-        
-        <category>ruby</category>
-        
-        <category>on</category>
-        
-        <category>rails</category>
         
       </item>
     
@@ -648,13 +608,9 @@ end script&lt;/pre&gt;&lt;/noscript&gt;
 &lt;p&gt;To deploy: &lt;code class=&quot;highlighter-rouge&quot;&gt;bundle exec rake vlad:deploy&lt;/code&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 08 Sep 2014 19:35:03 -0500</pubDate>
-        <link>http://dasari.me/sidekiq/vlad/2014/09/08/setup-sidekiq-in-production-using-vlad.html</link>
-        <guid isPermaLink="true">http://dasari.me/sidekiq/vlad/2014/09/08/setup-sidekiq-in-production-using-vlad.html</guid>
+        <link>http://dasari.me/2014/09/08/setup-sidekiq-in-production-using-vlad.html</link>
+        <guid isPermaLink="true">http://dasari.me/2014/09/08/setup-sidekiq-in-production-using-vlad.html</guid>
         
-        
-        <category>sidekiq</category>
-        
-        <category>vlad</category>
         
       </item>
     
