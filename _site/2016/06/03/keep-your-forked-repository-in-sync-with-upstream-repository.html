@@ -99,25 +99,23 @@ upstream	https://github.com/rails/rails.git (push)
 </ol>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>git pull --rebase upstream master
-git push -f origin master
 </code></pre>
 </div>
 
 <ol>
-  <li>To sync local branch <code class="highlighter-rouge">branch_name</code> with upstream master</li>
+  <li>To push changes to remote forked repository</li>
 </ol>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git pull --rebase upstream master
-git push -f origin branch_name
+<div class="highlighter-rouge"><pre class="highlight"><code>git push -f origin master
 </code></pre>
 </div>
 
 <ol>
-  <li>To sync local branch with upstream <code class="highlighter-rouge">branch_name</code> (other than master)</li>
+  <li>Sync working branch with</li>
 </ol>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git pull --rebase upstream branch_name
-git push -f origin branch_name
+<div class="highlighter-rouge"><pre class="highlight"><code>git checkout branch_name
+git rebase master
 </code></pre>
 </div>
 

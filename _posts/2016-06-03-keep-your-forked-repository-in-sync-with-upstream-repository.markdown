@@ -37,19 +37,17 @@ upstream	https://github.com/rails/rails.git (push)
 
 ```
 git pull --rebase upstream master
+```
+
+5. To push changes to remote forked repository
+
+```
 git push -f origin master
 ```
 
-5. To sync local branch `branch_name` with upstream master
+6. Sync working branch with
 
 ```
-git pull --rebase upstream master
-git push -f origin branch_name
-```
-
-6. To sync local branch with upstream `branch_name` (other than master)
-
-```
-git pull --rebase upstream branch_name
-git push -f origin branch_name
+git checkout branch_name
+git rebase master
 ```
