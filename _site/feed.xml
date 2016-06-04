@@ -2,13 +2,86 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>DV Dasari</title>
-    <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
-</description>
+    <description></description>
     <link>http://dasari.me/</link>
     <atom:link href="http://dasari.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 30 May 2016 23:15:22 -0500</pubDate>
-    <lastBuildDate>Mon, 30 May 2016 23:15:22 -0500</lastBuildDate>
+    <pubDate>Fri, 03 Jun 2016 23:25:53 -0500</pubDate>
+    <lastBuildDate>Fri, 03 Jun 2016 23:25:53 -0500</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>How to keep your forked repository in sync with the upstream repository</title>
+        <description>&lt;p&gt;Assuming that you forked a repository and cloned it on your local machine&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;To list the current remote repository for your fork:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git remote -v
+origin	https://github.com/dv2/rails.git (fetch)
+origin	https://github.com/dv2/rails.git (push)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Specify a new remote upstream repository that will be synced with the fork&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git remote add upstream https://github.com/rails/rails.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;To verify the upstream repo&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git remote -v
+origin		https://github.com/dv2/rails.git (fetch)
+origin		https://github.com/dv2/rails.git (push)
+upstream	https://github.com/rails/rails.git (fetch)
+upstream	https://github.com/rails/rails.git (push)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;To sync local master with upstream master&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git pull --rebase upstream master
+git push -f origin master
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;To sync local branch &lt;code class=&quot;highlighter-rouge&quot;&gt;branch_name&lt;/code&gt; with upstream master&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git pull --rebase upstream master
+git push -f origin branch_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;To sync local branch with upstream &lt;code class=&quot;highlighter-rouge&quot;&gt;branch_name&lt;/code&gt; (other than master)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git pull --rebase upstream branch_name
+git push -f origin branch_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Fri, 03 Jun 2016 19:35:03 -0500</pubDate>
+        <link>http://dasari.me/git/fork/rebase/2016/06/03/keep-your-forked-repository-in-sync-with-upstream-repository.html</link>
+        <guid isPermaLink="true">http://dasari.me/git/fork/rebase/2016/06/03/keep-your-forked-repository-in-sync-with-upstream-repository.html</guid>
+        
+        
+        <category>git</category>
+        
+        <category>fork</category>
+        
+        <category>rebase</category>
+        
+      </item>
     
       <item>
         <title>Sphinx and Thinking Sphinx commands</title>
@@ -582,33 +655,6 @@ end script&lt;/pre&gt;&lt;/noscript&gt;
         <category>sidekiq</category>
         
         <category>vlad</category>
-        
-      </item>
-    
-      <item>
-        <title>How to check cron job logs?</title>
-        <description>&lt;p&gt;Option #1: &lt;br /&gt;
-By default cron jobs log to &lt;code class=&quot;highlighter-rouge&quot;&gt;/var/log/syslog&lt;/code&gt; &lt;br /&gt;
-You can see them by: &lt;code class=&quot;highlighter-rouge&quot;&gt;grep CRON /var/log/syslog&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Option #2: &lt;br /&gt;
-Open file &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/rsyslog.d/50-default.conf&lt;/code&gt; &lt;br /&gt;
-Find the line that starts with &lt;code class=&quot;highlighter-rouge&quot;&gt;#cron.* /var/log/cron.log&lt;/code&gt; &lt;br /&gt;
-Uncomment that line and save the file &lt;br /&gt;
-restart rsyslog: &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo service rsyslog restart&lt;/code&gt; &lt;br /&gt;
-Now the cron logs appear in &lt;code class=&quot;highlighter-rouge&quot;&gt;/var/log/cron.log&lt;/code&gt; &lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;Option #3: &lt;br /&gt;
-in crontab at the end of the task add &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;gt;&amp;gt; /tmp/cron.log 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
-</description>
-        <pubDate>Tue, 01 Jul 2014 18:34:23 -0500</pubDate>
-        <link>http://dasari.me/jekyll/update/2014/07/01/how-to-check-cron-job-logs.html</link>
-        <guid isPermaLink="true">http://dasari.me/jekyll/update/2014/07/01/how-to-check-cron-job-logs.html</guid>
-        
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
         
       </item>
     

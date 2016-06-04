@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>How to check cron job logs?</title>
-  <meta name="description" content="Option #1: By default cron jobs log to /var/log/syslog You can see them by: grep CRON /var/log/syslog">
+  <title>How to keep your forked repository in sync with the upstream repository</title>
+  <meta name="description" content="Assuming that you forked a repository and cloned it on your local machine">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://dasari.me/jekyll/update/2014/07/01/how-to-check-cron-job-logs.html">
+  <link rel="canonical" href="http://dasari.me/git/fork/rebase/2016/06/03/keep-your-forked-repository-in-sync-with-upstream-repository.html">
   <link rel="alternate" type="application/rss+xml" title="DV Dasari" href="http://dasari.me/feed.xml">
 </head>
 
@@ -57,24 +57,69 @@
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">How to check cron job logs?</h1>
-    <p class="post-meta"><time datetime="2014-07-01T18:34:23-05:00" itemprop="datePublished">Jul 1, 2014</time></p>
+    <h1 class="post-title" itemprop="name headline">How to keep your forked repository in sync with the upstream repository</h1>
+    <p class="post-meta"><time datetime="2016-06-03T19:35:03-05:00" itemprop="datePublished">Jun 3, 2016</time></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>Option #1: <br />
-By default cron jobs log to <code class="highlighter-rouge">/var/log/syslog</code> <br />
-You can see them by: <code class="highlighter-rouge">grep CRON /var/log/syslog</code></p>
+    <p>Assuming that you forked a repository and cloned it on your local machine</p>
 
-<p>Option #2: <br />
-Open file <code class="highlighter-rouge">/etc/rsyslog.d/50-default.conf</code> <br />
-Find the line that starts with <code class="highlighter-rouge">#cron.* /var/log/cron.log</code> <br />
-Uncomment that line and save the file <br />
-restart rsyslog: <code class="highlighter-rouge">sudo service rsyslog restart</code> <br />
-Now the cron logs appear in <code class="highlighter-rouge">/var/log/cron.log</code> <br /></p>
+<ol>
+  <li>To list the current remote repository for your fork:</li>
+</ol>
 
-<p>Option #3: <br />
-in crontab at the end of the task add <code class="highlighter-rouge">&gt;&gt; /tmp/cron.log 2&gt;&amp;1</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git remote -v
+origin	https://github.com/dv2/rails.git (fetch)
+origin	https://github.com/dv2/rails.git (push)
+</code></pre>
+</div>
+
+<ol>
+  <li>Specify a new remote upstream repository that will be synced with the fork</li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git remote add upstream https://github.com/rails/rails.git
+</code></pre>
+</div>
+
+<ol>
+  <li>To verify the upstream repo</li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ git remote -v
+origin		https://github.com/dv2/rails.git (fetch)
+origin		https://github.com/dv2/rails.git (push)
+upstream	https://github.com/rails/rails.git (fetch)
+upstream	https://github.com/rails/rails.git (push)
+</code></pre>
+</div>
+
+<ol>
+  <li>To sync local master with upstream master</li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git pull --rebase upstream master
+git push -f origin master
+</code></pre>
+</div>
+
+<ol>
+  <li>To sync local branch <code class="highlighter-rouge">branch_name</code> with upstream master</li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git pull --rebase upstream master
+git push -f origin branch_name
+</code></pre>
+</div>
+
+<ol>
+  <li>To sync local branch with upstream <code class="highlighter-rouge">branch_name</code> (other than master)</li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git pull --rebase upstream branch_name
+git push -f origin branch_name
+</code></pre>
+</div>
 
   </div>
 
