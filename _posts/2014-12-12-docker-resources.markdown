@@ -1,8 +1,10 @@
 ---
 layout: post
-title:  "Docker Resources"
+title:  Docker Resources
 date:   2014-12-16 19:35:03 -0500
-categories: Docker
+comments: true
+keywords: Docker
+description:  Docker Resources
 ---
 
 Fig — Getting started with Fig and Rails — [http://www.fig.sh/rails.html](http://www.fig.sh/rails.html)

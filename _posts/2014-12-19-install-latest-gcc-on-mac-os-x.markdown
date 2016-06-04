@@ -1,8 +1,10 @@
 ---
 layout: post
-title:  "Install latest version of gcc on Mac OS X"
+title:  Install latest version of gcc on Mac OS X
 date:   2014-12-19 19:35:03 -0500
-categories: gcc
+comments: true
+keywords: gcc
+description: Install latest version of gcc on Mac OS X
 ---
 
 **Mac OS X Yosemite Version 10.10.1**

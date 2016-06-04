@@ -1,8 +1,10 @@
 ---
 layout: post
-title:  "Search across all git branches"
+title:  Search across all git branches
 date:   2014-09-22 19:35:03 -0500
-categories: search git branches
+comments: true
+keywords: search git branches
+description:  Search across all git branches
 ---
 
 I was looking for a way to search within all the git branches for some text and here is how I ended up doing that. I wrote a ruby program that I run inside the git repo.

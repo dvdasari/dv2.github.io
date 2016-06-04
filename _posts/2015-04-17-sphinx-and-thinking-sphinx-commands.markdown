@@ -1,8 +1,10 @@
 ---
 layout: post
-title:  "Sphinx and Thinking Sphinx commands"
+title:  Sphinx and Thinking Sphinx commands
 date:   2015-04-17 19:35:03 -0500
-categories: sphinx thinking sphinx
+comments: true
+keywords: sphinx thinking sphinx
+description: Sphinx and Thinking Sphinx commands
 ---
 
 ![Sphinx]({{ site_url }}/assets/sphinx.png){: .center-image }

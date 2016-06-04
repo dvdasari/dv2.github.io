@@ -1,8 +1,10 @@
 ---
 layout: post
-title:  "Setup Sidekiq in production using VLAD"
+title:  Setup Sidekiq in production using VLAD
 date:   2014-09-08 19:35:03 -0500
-categories: sidekiq vlad
+comments: true
+keywords: sidekiq vlad
+description: Setup Sidekiq in production using VLAD
 ---
 
 Here is the official documentation for Sidekiq deployment 

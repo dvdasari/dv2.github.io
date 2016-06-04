@@ -1,8 +1,10 @@
 ---
 layout: post
-title:  "Replacing MySQL with MariaDB on OS X for a Ruby on Rails App"
+title:  Replacing MySQL with MariaDB on OS X for a Ruby on Rails App
 date:   2015-01-08 19:35:03 -0500
-categories: mysql mariadb
+comments: true
+keywords: mysql mariadb
+description: Replacing MySQL with MariaDB on OS X for a Ruby on Rails App
 ---
 
 First uninstall MySQL.

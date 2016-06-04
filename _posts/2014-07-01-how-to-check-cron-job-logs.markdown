@@ -1,8 +1,10 @@
 ---
 layout: post
-title:  "How to check cron job logs?"
+title:  How to check cron job logs?
 date:   2014-07-01 18:34:23 -0500
-categories: jekyll update
+comments: true
+keywords: jekyll update
+description: How to check cron job logs?
 ---
 
 Option #1: <br/>

@@ -1,8 +1,10 @@
 ---
-layout: post
-title:  "How to keep your forked repository in sync with the upstream repository"
-date:   2016-06-03 19:35:03 -0500
-categories: git fork rebase
+layout:      post
+title:       How to keep your forked repository in sync with the upstream repository
+date:        2016-06-03 19:35:03 -0500
+comments:    true
+keywords:    git fork rebase
+description: How to keep your forked repository in sync with the upstream repository
 ---
 
 Assuming that you forked a repository and cloned it on your local machine

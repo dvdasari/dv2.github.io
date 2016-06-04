@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Configure NGINX for multiple websites on a VPS"
+title: Configure NGINX for multiple websites on a VPS
 date: 2014-01-29 00:15:37 -0600
 comments: true
 keywords: NGINX, Ruby on Rails, VPS

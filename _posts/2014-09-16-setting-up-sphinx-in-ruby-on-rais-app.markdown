@@ -1,8 +1,10 @@
 ---
 layout: post
-title:  "Setting up Sphinx in a Ruby on Rails application"
+title:  Setting up Sphinx in a Ruby on Rails application
 date:   2014-09-16 19:35:03 -0500
-categories: sphinx ruby on rails
+comments: true
+keywords: sphinx ruby on rails
+description:  Setting up Sphinx in a Ruby on Rails application
 ---
 
 Thinking Sphinx — [http://pat.github.io/thinking-sphinx/](http://pat.github.io/thinking-sphinx/)
