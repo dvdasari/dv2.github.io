@@ -72,9 +72,13 @@ Copy the below into `playbook.yml`
 
 Copy the below into `templates/boto.j2`
 
+{% raw %}
+```
 [Credentials]
-<br>aws_access_key_id = \{\{ AWS_ACCESS_KEY_ID }}
-<br>aws_secret_access_key = \{\{ AWS_SECRET_ACCESS_KEY }}
+aws_access_key_id = {{ AWS_ACCESS_KEY_ID }}
+aws_secret_access_key = {{ AWS_SECRET_ACCESS_KEY }}
+```
+{% endraw %}
 
 Copy the below into `group_vars/all` and update aws access key, secret access key
 
