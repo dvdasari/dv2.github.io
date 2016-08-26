@@ -8,11 +8,17 @@ Ansible is a great tool for provisioning AWS environment. You can run Ansible co
 We will use CentOS 7 distribution of Linux for the VM. Vagrant should be installed on the mac. For [installing vagrant click here](https://www.vagrantup.com/downloads.html).
 
 ### Set Up VM, Install Ansible and boto
-cd into your working directory and create the below files. `Vagrantfile` for vm configuration and `ansible` folder for ansible playbooks.
+cd into your working directory and create the below files.
+
+* `Vagrantfile` for vm configuration
+* `playbook.yml` playbook for provisioning virtual machine
+* `ansible` folder for ansible playbooks for provisioning AWS
+* `group_vars` folder for variables
+* `templates` folder for virtual machine config files
 
 ```
-$ touch Vagrantfile
-$ mkdir ansible
+$ mkdir ansible group_vars templates
+$ touch Vagrantfile playbook.yml templates/boto.j2 group_vars/all
 ```
 
 Copy the below lines into `Vagrantfile`. This configuration is to
@@ -21,21 +27,62 @@ Copy the below lines into `Vagrantfile`. This configuration is to
 * create a sync folder between the host machine and the virtual machine
 * update packages
 * install ansible
-* install Python boto - Boto is a Python package that provides interfaces to Amazon Web Services. Read more about Boto [here](https://github.com/boto/boto). It lists all the AWS Services that boto supports.
+* install Python boto - Boto is a Python package that provides interfaces to Amazon Web Services. Read more about Boto [here](https://github.com/boto/boto). It lists all the AWS Services that boto supports. x
 
-```
+{% highlight ruby %}
 Vagrant.configure(2) do |config|
   config.vm.box = "centos/7"
   config.vm.synced_folder "./ansible", "/home/vagrant/ansible"
-  config.vm.provision "shell", inline: <<-SHELL
-    sudo yum -y update
-    sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm
-    sudo yum -y install ansible
-    sudo yum -y install python-pip
-    sudo pip install boto
-  SHELL
+  config.vm.provision "ansible" do |ansible|
+    # ansible.verbose = "v"
+    ansible.playbook = "playbook.yml"
+  end
 end
-```
+{% endhighlight %}
+
+Copy the below into `playbook.yml`
+
+{% highlight ruby %}
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Upgrade all packages
+      yum: name=* state=latest
+
+    - name: Install EPEL repository
+      yum: name=https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm state=present
+
+    - name: Install Ansible
+      yum: name=ansible
+
+    - name: Install python-pip
+      yum: name=python-pip
+
+    - name: pip install boto
+      pip: name=boto
+
+    - name: Setup boto config file
+      template: src=boto.j2
+                dest=/home/vagrant/.boto
+                owner=vagrant
+                group=vagrant
+{% endhighlight %}
+
+
+Copy the below into `templates/boto.j2`
+
+[Credentials]
+<br>aws_access_key_id = \{\{ AWS_ACCESS_KEY_ID }}
+<br>aws_secret_access_key = \{\{ AWS_SECRET_ACCESS_KEY }}
+
+Copy the below into `group_vars/all` and update aws access key, secret access key
+
+{% highlight ruby %}
+---
+AWS_ACCESS_KEY_ID:      update-aws-access-key-id
+AWS_SECRET_ACCESS_KEY:  update-aws-secret-access-key
+{% endhighlight %}
 
 Bring the vm box up:
 
@@ -49,14 +96,6 @@ Ssh into vm box:
 
 ```
 $ vagrant ssh
-```
-
-Configure `boto` to use AWS access keys. Create `~/.boto` file and add the below
-
-```
-[Credentials]
-aws_access_key_id = <your_access_key_here>
-aws_secret_access_key = <your_secret_key_here>
 ```
 
 Lets create a playbook to create EC2 key pair
