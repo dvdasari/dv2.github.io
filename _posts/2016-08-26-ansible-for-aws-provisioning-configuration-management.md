@@ -121,6 +121,7 @@ localhost
 
 Create playbook file `keypair.yml` in current directory and update with below lines
 
+{% raw %}
 ```
 ---
 - hosts: localhost
@@ -142,6 +143,7 @@ Create playbook file `keypair.yml` in current directory and update with below li
       copy: content="{{ mykey.key.private_key }}" dest="~/.ssh/{{ keyname }}.pem" mode=0600
       when: mykey.changed
 ```
+{% endraw %}
 
 Execute the playbook: `$ ansible-playbook -i hosts keypair.yml`
 
