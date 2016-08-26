@@ -5,7 +5,7 @@ title:       Use Ansible for AWS Provisioning and Configuration Management
 
 Ansible is a great tool for provisioning AWS environment. You can run Ansible commands from your mac, but I prefer setting up a VM on mac and running Ansible playbooks from there.
 
-We will use CentOS 7 distribution of Linux for the VM. Vagrant should already be installed on the mac. Otherwise, here is the link for [installing vagrant](https://www.vagrantup.com/downloads.html).
+We will use CentOS 7 distribution of Linux for the VM. Vagrant should be installed on the mac. For [installing vagrant click here](https://www.vagrantup.com/downloads.html).
 
 ### Set Up VM, Install Ansible and boto
 cd into your working directory and create the below files. `Vagrantfile` for vm configuration and `ansible` folder for ansible playbooks.
