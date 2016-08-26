@@ -3,17 +3,52 @@ layout:      post
 title:       Use Ansible for AWS Provisioning and Configuration Management
 ---
 
-We will use CentOS 7 distribution of Linux to run Ansible. To setup VM on mac to run CentOS 7, [read this article](http://dasari.me/2016/08/25/run-virtual-machine-centos-7-on-mac-install-ansible.html)
+Ansible is a great tool for provisioning AWS environment. You can run Ansible commands from your mac, but I prefer setting up a VM on mac and running Ansible playbooks from there.
 
-### Install Python boto
-Boto is a Python package that provides interfaces to Amazon Web Services. Read more about Boto [here](https://github.com/boto/boto). It lists all the AWS Services that boto supports.
+We will use CentOS 7 distribution of Linux for the VM. Vagrant should already be installed on the mac. Otherwise, here is the link for [installing vagrant](https://www.vagrantup.com/downloads.html).
 
-On CentOS 7
+### Set Up VM, Install Ansible and boto
+cd into your working directory and create the below files. `Vagrantfile` for vm configuration and `ansible` folder for ansible playbooks.
 
 ```
-$ sudo yum -y update
-$ sudo yum -y install python-pip
-$ sudo pip install boto
+$ touch Vagrantfile
+$ mkdir ansible
+```
+
+Copy the below lines into `Vagrantfile`. This configuration is to
+
+* set up a virtual environment that runs CentOS 7
+* create a sync folder between the host machine and the virtual machine
+* update packages
+* install ansible
+* install Python boto - Boto is a Python package that provides interfaces to Amazon Web Services. Read more about Boto [here](https://github.com/boto/boto). It lists all the AWS Services that boto supports.
+
+```
+Vagrant.configure(2) do |config|
+  config.vm.box = "centos/7"
+  config.vm.synced_folder "./ansible", "/home/vagrant/ansible"
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo yum -y update
+    sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm
+    sudo yum -y install ansible
+    sudo yum -y install python-pip
+    sudo pip install boto
+  SHELL
+end
+```
+
+Bring the vm box up:
+
+```
+$ vagrant up
+```
+
+Now we have a virtual machine that is fully configured to create and run Ansible Playbooks for configuring AWS.
+
+Ssh into vm box:
+
+```
+$ vagrant ssh
 ```
 
 Configure `boto` to use AWS access keys. Create `~/.boto` file and add the below
@@ -35,7 +70,7 @@ Create `hosts` file in current directory and update it:
 localhost
 ```
 
-Create playbook file `keypair.yml` in current directory
+Create playbook file `keypair.yml` in current directory and update with below lines
 
 ```
 ---
