@@ -4,7 +4,7 @@ title:       Run Virtual Machine (CentOS 7) on mac & Install Ansible
 ---
 #### For installing vagrant refer [Vagrant Downloads](https://www.vagrantup.com/downloads.html)
 
-Assuming that Vagrant is installed on your mac, we will run a virtual machine that runs CentOS 6.5 distribution of Linux on the mac.
+Assuming that Vagrant is installed on your mac, we will run a virtual machine that runs CentOS 7 distribution of Linux on the mac.
 
 From a working directory run:
 
