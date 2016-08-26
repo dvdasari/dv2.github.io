@@ -94,6 +94,12 @@ Bring the vm box up:
 $ vagrant up
 ```
 
+The above statement creates virtual machine and provisions. Later if only provisioning is needed, we can just run
+
+```
+$ vagrant provision
+```
+
 Now we have a virtual machine that is fully configured to create and run Ansible Playbooks for configuring AWS.
 
 Ssh into vm box:
