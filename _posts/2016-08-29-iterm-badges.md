@@ -11,6 +11,7 @@ Open `iTerm > Preferences > Profiles > General > Badge`
 
 ![Screenshot](/assets/badge_preferences.png)
 
+{:.center}
 ![Example](/assets/badge_iterm_simple.png)
 
 ### iTerm2 Defined Variables
