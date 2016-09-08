@@ -126,3 +126,90 @@ To find a list of all projects:
 
 ### List Routes: <br>
 `bin/cake routes`
+
+### Creating namespaced controllers
+for creating routes like `/admin/users/5`
+
+`bin/cake bake all users --prefix=admin`
+
+### How to do User password hashing?
+
+Open the user entity file `src/Model/Entity/User.php` <br>
+Add `use Cake\Auth\DefaultPasswordHasher;` <br>
+Add this method: <br>
+
+```
+protected function _setPassword($password)
+{
+  return (new DefaultPasswordHasher)->hash($password);
+}
+```
+Now user password will be hashed whenever a user is created or updated.
+
+
+### How to add Authentication component and allow user to login and logout.
+
+Open `src/Controller/AppController.php` <br>
+Add the below inside `initialize` method.
+`$this->loadComponent('Auth');`
+
+```
+$this->loadComponent('Auth', [
+  'authenticate' => [
+    'Form' => ['fields' => ['username' => 'username']]
+  ]
+]);
+```
+
+CakePHP standard is to use an `username` and `password` for loging in. If `email` is used instead of `username`, the code will look as below:
+
+```
+$this->loadComponent('Auth', [
+  'authenticate' => [
+    'Form' => ['fields' => ['username' => 'email']]
+  ]
+]);
+```
+
+Next we need to setup a login and logout method:
+
+Open `src/Controller/UsersController.php`
+
+and paste the login and logout methods
+
+```
+public function login()
+{
+    if ($this->request->is('post')) {
+        $user = $this->Auth->identify();
+        if ($user) {
+            $this->Auth->setUser($user);
+            return $this->redirect($this->Auth->redirectUrl());
+        }
+        $this->Flash->error(__('Invalid email or password, try again'));
+    }
+}
+
+public function logout()
+{
+    return $this->redirect($this->Auth->logout());
+}
+```
+
+Login Form:
+
+`src/Template/Users/login.ctp`
+
+```
+<div class="users form">
+<?= $this->Flash->render('auth') ?>
+<?= $this->Form->create() ?>
+    <fieldset>
+        <legend><?= __('Please enter your email and password') ?></legend>
+        <?= $this->Form->input('email') ?>
+        <?= $this->Form->input('password') ?>
+    </fieldset>
+<?= $this->Form->button(__('Login')); ?>
+<?= $this->Form->end() ?>
+</div>
+```
