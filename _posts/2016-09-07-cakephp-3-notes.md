@@ -43,7 +43,7 @@ inside `validationDefault` method
 
 Example validation:
 
-{% highlight php %}
+{% highlight ruby %}
 public function validationDefault(Validator $validator)
 {
   $validator
@@ -60,7 +60,7 @@ Model associations are done in: (same file as above)<br>
 `src/Model/Table/ProductTable.php`
 inside `initialize` method
 
-{% highlight php %}
+{% highlight ruby %}
 public function initialize(array $config)
 {
   ....
@@ -80,7 +80,7 @@ Yes there is one
 
 To find a list of all projects:
 
-```
+{% highlight ruby %}
 >>> $projects = Cake\ORM\TableRegistry::get('Projects');
 => App\Model\Table\ProjectsTable {#208
      +"registryAlias": "Projects",
@@ -125,7 +125,7 @@ To find a list of all projects:
        },
      ],
    }
-```
+{% endhighlight %}
 
 ### List Routes: <br>
 `bin/cake routes`
@@ -148,12 +148,13 @@ Open the user entity file `src/Model/Entity/User.php` <br>
 Add `use Cake\Auth\DefaultPasswordHasher;` <br>
 Add this method: <br>
 
-```
+{% highlight ruby %}
 protected function _setPassword($password)
 {
   return (new DefaultPasswordHasher)->hash($password);
 }
-```
+{% endhighlight %}
+
 Now user password will be hashed whenever a user is created or updated.
 
 
@@ -163,23 +164,23 @@ Open `src/Controller/AppController.php` <br>
 Add the below inside `initialize` method.
 `$this->loadComponent('Auth');`
 
-```
+{% highlight ruby %}
 $this->loadComponent('Auth', [
   'authenticate' => [
     'Form' => ['fields' => ['username' => 'username']]
   ]
 ]);
-```
+{% endhighlight %}
 
 CakePHP standard is to use an `username` and `password` for loging in. If `email` is used instead of `username`, the code will look as below:
 
-```
+{% highlight ruby %}
 $this->loadComponent('Auth', [
   'authenticate' => [
     'Form' => ['fields' => ['username' => 'email']]
   ]
 ]);
-```
+{% endhighlight %}
 
 Next we need to setup a login and logout method:
 
@@ -187,7 +188,7 @@ Open `src/Controller/UsersController.php`
 
 and paste the login and logout methods
 
-```
+{% highlight ruby %}
 public function login()
 {
     if ($this->request->is('post')) {
@@ -204,11 +205,11 @@ public function logout()
 {
     return $this->redirect($this->Auth->logout());
 }
-```
+{% endhighlight %}
 
 create Login Form at: `src/Template/Users/login.ctp`
 
-```
+{% highlight php %}
 <div class="users form">
 <?= $this->Flash->render('auth') ?>
 <?= $this->Form->create() ?>
@@ -220,13 +221,13 @@ create Login Form at: `src/Template/Users/login.ctp`
 <?= $this->Form->button(__('Login')); ?>
 <?= $this->Form->end() ?>
 </div>
-```
+{% endhighlight %}
 
 ### How to show user logged in / logged out info in navbar
 
 Add this in `src/Template/Layout/default.ctp`
 
-```
+{% highlight php %}
 <ul class="right">
   <?php if ($this->request->session()->read('Auth.User')): ?>
     <li><a>Logged in as <?php echo $this->request->session()->read('Auth.User.email') ?></a></li>
@@ -236,4 +237,4 @@ Add this in `src/Template/Layout/default.ctp`
   <?php endif; ?>
   <li><a href="/">Home</a></li>
 </ul>
-```
+{% endhighlight %}
