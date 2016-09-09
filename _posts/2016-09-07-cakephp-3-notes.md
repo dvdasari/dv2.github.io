@@ -130,7 +130,14 @@ To find a list of all projects:
 ### Creating namespaced controllers
 for creating routes like `/admin/users/5`
 
-`bin/cake bake all users --prefix=admin`
+To bake everything: <br>
+`bin/cake bake all Users --prefix=admin`
+
+To bake `controller`: <br>
+`bin/cake bake controller Users --prefix Admin`
+
+To bake `views`: <br>
+`bin/cake bake template Users --prefix Admin`
 
 ### How to do User password hashing?
 
@@ -196,9 +203,7 @@ public function logout()
 }
 ```
 
-Login Form:
-
-`src/Template/Users/login.ctp`
+create Login Form at: `src/Template/Users/login.ctp`
 
 ```
 <div class="users form">
@@ -212,4 +217,20 @@ Login Form:
 <?= $this->Form->button(__('Login')); ?>
 <?= $this->Form->end() ?>
 </div>
+```
+
+### How to show user logged in / logged out info in navbar
+
+Add this in `src/Template/Layout/default.ctp`
+
+```
+<ul class="right">
+  <?php if ($this->request->session()->read('Auth.User')): ?>
+    <li><a>Logged in as <?php echo $this->request->session()->read('Auth.User.email') ?></a></li>
+    <li><a href="/users/logout">Logout</a></li>
+  <?php else: ?>
+    <li><a href="/users/login">Login</a></li>
+  <?php endif; ?>
+  <li><a href="/">Home</a></li>
+</ul>
 ```
