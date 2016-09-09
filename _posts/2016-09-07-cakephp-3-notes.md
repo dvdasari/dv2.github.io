@@ -20,10 +20,10 @@ Create migration: <br>
   * default column type will be `string` if not mentioned
   * `created` and `modified` will be created as `datetime`
 
-Add Column to an existing table: <br>
+Add _Column_ to an existing table: <br>
 `bin/cake bake migration AddPriceToProducts price:decimal`
 
-Add column and index to an existing table: <br>
+Add _Column_ and _Index_ to an existing table: <br>
 `bin/cake bake migration AddNameIndexToProducts name:string:index`
 
 And for more on migrations, [check this page](http://book.cakephp.org/3.0/en/migrations.html)
@@ -34,6 +34,8 @@ And for more on migrations, [check this page](http://book.cakephp.org/3.0/en/mig
 2. Run the migrations
 3. Run bake all command for the resource. For products that would be: <br>
 `bin/cake bake all products`
+
+### Model Validations
 
 Model validations are done in: <br>
 `src/Model/Table/ProductTable.php`
@@ -52,6 +54,7 @@ public function validationDefault(Validator $validator)
 }
 {% endhighlight %}
 
+### Model Associations
 
 Model associations are done in: (same file as above)<br>
 `src/Model/Table/ProductTable.php`
