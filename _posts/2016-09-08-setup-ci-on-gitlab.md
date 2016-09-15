@@ -59,7 +59,7 @@ touch .gitlab-ci.yml
 
 If you are using `rspec` for testing, update the above file with:
 
-```
+{% highlight ruby %}
 before_script:
   - rbenv install --skip-existing `cat .ruby-version`
   - bundle install
@@ -70,11 +70,11 @@ rspec:
     - bundle exec rspec
   tags:
     - ruby
-```
+{% endhighlight %}
 
 If `minitest` is used, update as below:
 
-```
+{% highlight ruby %}
 before_script:
   - rbenv install --skip-existing `cat .ruby-version`
   - bundle install
@@ -85,7 +85,7 @@ test:
     - bundle exec rake test
   tags:
     - ruby
-```
+{% endhighlight %}
 
 ### Configuring a Runner
 
