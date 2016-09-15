@@ -238,3 +238,16 @@ Add this in `src/Template/Layout/default.ctp`
   <li><a href="/">Home</a></li>
 </ul>
 {% endhighlight %}
+
+### How to print to log files?
+
+In the controller <br>
+`$this->log($this->request->params);`
+
+tail log files from the application root path: <br>
+`tail -f logs/error.log logs/debug.log`
+
+### current_user ?
+`$this->request->session()->read('Auth.User')`
+
+current_user email: `$this->request->session()->read('Auth.User.email')`
