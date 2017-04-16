@@ -18,3 +18,6 @@ then run `bundle exec cap staging deploy`
 
 1. Otherwise install with the below command  <br />
    `$ xcode-select --install`
+
+----
+<p></p>
