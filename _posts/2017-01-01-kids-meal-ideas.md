@@ -9,6 +9,8 @@ Source: [http://www.eatingwell.com/recipe/250108/black-bean-quesadillas/](http:/
 
 These satisfying quesadillas take just 15 minutes to make. We like them with black beans, but pinto beans work well too. If you like a little heat, be sure to use pepper Jack cheese in the filling. Serve with: A little sour cream and a mixed green salad.
 
+![recipe_image]({{ site.url }}/assets/recipes/black_bean_ quesadilla.jpg)
+
 ### Ingredients
 
 1. 1 15-ounce can black beans, rinsed
