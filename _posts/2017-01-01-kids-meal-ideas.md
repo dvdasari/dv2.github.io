@@ -31,3 +31,36 @@ Tip: Look for prepared fresh salsa in the supermarket refrigerator section near 
 
 ----
 <p></p>
+
+## Black Bean and Corn Quesadillas
+
+Source: [http://allrecipes.com/recipe/104850/black-bean-and-corn-quesadillas/](http://allrecipes.com/recipe/104850/black-bean-and-corn-quesadillas/)
+
+![recipe_image]({{ site.url }}/assets/recipes/black_bean_corn_quesadilla.jpg)
+
+### Ingredients
+
+1. 2 teaspoons olive oil
+1. 3 tablespoons finely chopped onion
+1. 1 (15.5 ounce) can black beans, drained and rinsed
+1. 1 (10 ounce) can whole kernel corn, drained
+1. 1 tablespoon brown sugar
+1. 1/4 cup salsa
+1. 1/4 teaspoon red pepper flakes
+1. 2 tablespoons butter, divided
+1. 8 (8 inch) flour tortillas
+1. 1 1/2 cups shredded Monterey Jack cheese, divided
+
+### Preparation
+
+Prep: 10 min
+Cook: 30 min
+Ready in 40 min
+
+1. Heat oil in a large saucepan over medium heat. Stir in onion, and cook until softened, about 2 minutes. Stir in beans and corn, then add sugar, salsa, and pepper flakes; mix well. Cook until heated through, about 3 minutes.
+1. Melt 2 teaspoons of the butter in a large skillet over medium heat. Place a tortilla in the skillet, sprinkle evenly with cheese, then top with some of the bean mixture. Place another tortilla on top, cook until golden, then flip and cook on the other side. Melt more butter as needed, and repeat with remaining tortillas and filling.
+
+Tip: Aluminum foil helps keep food moist, ensures it cooks evenly, keeps leftovers fresh, and makes clean-up easy.
+
+----
+<p></p>
