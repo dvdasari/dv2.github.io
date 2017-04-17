@@ -64,3 +64,35 @@ Tip: Aluminum foil helps keep food moist, ensures it cooks evenly, keeps leftove
 
 ----
 <p></p>
+
+## Chicken Club Quesadillas
+
+Source: [https://www.babble.com/best-recipes/chicken-club-quesadillas/](https://www.babble.com/best-recipes/chicken-club-quesadillas/)
+
+Quesadillas make a quick and easy weeknight meal that you can have done in a snap. Many times I make them for dinner, but I also make them at lunch when it’s just me and my so too. Last night, I wanted to take all those flavors I love about a classic club sandwich and incorporate them in a cheesy quesadilla. Instead of deli meats, I used cooked chicken and bacon. Doesn’t bacon just always make everything better? I cooked the chicken in the bacon fat too so it was especially good. Then I used fresh ripe tomatoes, hass avocado and sweet vidalia onions along with lots of shredded Monterrey and Colby cheese to make these oogey gooey kid and adult approved quesadillas.
+
+![recipe_image]({{ site.url }}/assets/recipes/chicken_club_quesadilla.jpg)
+
+### Ingredients
+
+1. 1 lb boneless skinless chicken, cut in strips
+1. 6 strips bacon, cooked crisp and crumbled
+1. 2 tomatoes, chopped
+1. 1 hass avocado, chopped
+1. a bunch of Italian parsley, finely chopped
+1. 1/2 sweet onion, chopped
+1. the juice of 1/2 a lemon
+1. salt and pepper
+1. 1 cup Colby and Monterrey shredded cheese
+1. flour tortillas
+1. olive oil
+
+### Preparation
+
+1. Cook bacon until crisp and set aside. Salt and pepper sliced chicken and add to skillet with bacon fat. Cook until browned and remove from pan.
+1. Add chopped tomatoes, avocado, onion, parsley and lemon juice to a large bowl. Add salt and pepper. Toss.
+1. Preheat oven to 450 degrees. Rub olive oil on one side of a flour tortilla. Lay tortilla on baking sheet, oiled side down. Add chicken, bacon, tomato and avocado mixture.  Add cheese. Top with another tortilla and rub the top of it with a little more olive oil.
+1. Bake at 450 degrees until lightly browned and crisp.
+
+----
+<p></p>
