@@ -10,6 +10,13 @@ then run `bundle exec cap staging deploy`
 ----
 <p></p>
 
+#### Run single minitest file
+`bundle exec ruby -I test test/models/core/post_test.rb`
+
+----
+<p></p>
+
+
 #### Installing the Xcode Command Line Tools for Mac
 
 1. Check if Xcode Command Line Tools are already installed, run <br />
