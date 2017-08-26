@@ -70,3 +70,17 @@ If you want to change configuration, type `sudo raspi-config` and this will disp
 
 {:.center}
 ![Raspberry Pi Config](/assets/raspberry_pi_config.png)
+
+If you want to make all of the SD card storage available to the OS
+
+* Select `7 Advanced Options`, Hit enter
+
+{:.center}
+![Raspberry Pi Advanced Options](/assets/raspberry_pi_adv_opts.png)
+
+* Select `A1 Expand Filesystem` Hit enter
+
+{:.center}
+![Raspberry Pi Expand Fs](/assets/raspberry_pi_expand_fs.png)
+
+And then reboot the pi to make these changes effective.
