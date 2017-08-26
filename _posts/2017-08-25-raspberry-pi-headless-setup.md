@@ -83,4 +83,4 @@ If you want to make all of the SD card storage available to the OS
 {:.center}
 ![Raspberry Pi Expand Fs](/assets/raspberry_pi_expand_fs.png)
 
-And then reboot the pi to make these changes effective.
+Reboot the pi to make these changes effective.
