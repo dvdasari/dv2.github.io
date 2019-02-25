@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Kids meal ideas
+category: recipes
+tags: ['mexican', 'quesadillas']
 ---
 
 ## Black Bean Quesadillas

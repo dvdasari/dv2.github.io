@@ -50,3 +50,5 @@ title: Resources
   - Poppin Smoke - Travel, Military, and Retirement Resources
     - https://www.poppinsmoke.com/military-travel-blogs/
     - https://www.poppinsmoke.com/military-travel-blogs/#spaceafacebook
+  - Veteran Tickets Foundation
+    - https://www.vettix.org/
