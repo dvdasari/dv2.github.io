@@ -3,11 +3,6 @@ layout: page
 permalink: /mil/
 ---
 
----
-layout: post
-title: Resources
----
-
 ### Useful sites
   - MPF:
     - https://gomdl.com/activities/military-and-personnel-flight/
