@@ -3,8 +3,7 @@ layout: page
 permalink: /mil/
 ---
 
-### Sites
-
+Useful Sites
   - MPF:
     - [https://gomdl.com/activities/military-and-personnel-flight/](https://gomdl.com/activities/military-and-personnel-flight/)
   - Child Care Aware:
