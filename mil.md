@@ -5,7 +5,7 @@ permalink: /mil/
 
 ### Useful sites
   - MPF:
-    - https://gomdl.com/activities/military-and-personnel-flight/
+    - [https://gomdl.com/activities/military-and-personnel-flight/](https://gomdl.com/activities/military-and-personnel-flight/)
   - Child Care Aware:
     - http://usa.childcareaware.org/login/
     - https://faps.americasteamforchildcare.org
