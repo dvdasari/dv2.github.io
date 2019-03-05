@@ -21,6 +21,7 @@ permalink: /recipes/
 Prep: 10 min Cook: 30 min Ready in 20 min
 1. Bring water to a boil. Drop the chicken feet and let it boil for 10 minutes. After 10 minutes put them in cold water and cut the nails and peel any skin that in on the feet.
 
+---
 
 ### Instant Pot - Brown Rice
 #### Ingredients
@@ -32,6 +33,7 @@ Prep: 10 min Cook: 30 min Ready in 20 min
 1. Set to Manual - High Pressure - 22 minutes
 1. Let the pressure come down on its own
 
+---
 
 ### Instant Pot - White Rice
 #### Ingredients
@@ -42,6 +44,7 @@ Prep: 10 min Cook: 30 min Ready in 20 min
 1. Set to Manual - High Pressure - ?? minutes
 1. Let the pressure come down on its own
 
+---
 
 ### Green Smoothie (Keto)
 #### Ingredients
@@ -60,6 +63,7 @@ Prep: 10 min Cook: 30 min Ready in 20 min
 Prep: 10 min Blend: 5 min Ready in 15 min
 1. Put all the ingredients in a blender and blend
 
+---
 
 ### Instant POT - Hard Boiled Eggs
 #### Ingredients
@@ -70,6 +74,7 @@ Prep: 10 min Blend: 5 min Ready in 15 min
 1. Set to Manual - High Pressure - ?? minutes
 1. Let the pressure come down on its own
 
+---
 
 ### Bulletproof Coffee
 #### Ingredients
@@ -81,3 +86,5 @@ Prep: 10 min Blend: 5 min Ready in 15 min
 #### Preparation
 Prep: 10 min Blend: 5 min Ready in 15 min
 1. Put all the ingredients in a blender and blend
+
+---
