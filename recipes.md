@@ -3,6 +3,8 @@ layout: page
 permalink: /recipes/
 ---
 
+Recipes
+
 ### Beef Bone Broth
 #### Ingredients
 1. Chicken feet
@@ -28,6 +30,7 @@ Prep: 10 min Cook: 30 min Ready in 20 min
 1. 1 cup of brown rice
 1. 3/4 tsp of salt
 1. 1 1/2 cup of water
+
 #### Preparation
 1. Put valve on Instant Pot in sealing position
 1. Set to Manual - High Pressure - 22 minutes
@@ -39,6 +42,7 @@ Prep: 10 min Cook: 30 min Ready in 20 min
 #### Ingredients
 1. 1 cup of white rice
 1. ?? cup of water
+
 #### Preparation
 1. Put valve on Instant Pot in sealing position
 1. Set to Manual - High Pressure - ?? minutes
@@ -59,6 +63,7 @@ Prep: 10 min Cook: 30 min Ready in 20 min
 6. 1 Tbsp MCT Oil
 7. 1 Tbsp Protein Powder
 8. 1 cup of water (or more)
+
 #### Preparation
 Prep: 10 min Blend: 5 min Ready in 15 min
 1. Put all the ingredients in a blender and blend
@@ -69,6 +74,7 @@ Prep: 10 min Blend: 5 min Ready in 15 min
 #### Ingredients
 1. ?? Eggs
 2. ?? cup of water
+
 #### Preparation
 1. Put valve on Instant Pot in sealing position
 1. Set to Manual - High Pressure - ?? minutes
@@ -83,6 +89,7 @@ Prep: 10 min Blend: 5 min Ready in 15 min
 3. 1 tbsp Hemp Hearts
 4. 1 tbsp butter
 5. 1 tbsp Collogen Peptides
+
 #### Preparation
 Prep: 10 min Blend: 5 min Ready in 15 min
 1. Put all the ingredients in a blender and blend
