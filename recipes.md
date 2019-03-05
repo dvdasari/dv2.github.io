@@ -16,6 +16,7 @@ permalink: /recipes/
 1. ACV
 1. Ginger
 1. Garlic
+
 #### Preparation
 Prep: 10 min Cook: 30 min Ready in 20 min
 1. Bring water to a boil. Drop the chicken feet and let it boil for 10 minutes. After 10 minutes put them in cold water and cut the nails and peel any skin that in on the feet.
@@ -72,11 +73,11 @@ Prep: 10 min Blend: 5 min Ready in 15 min
 
 ### Bulletproof Coffee
 #### Ingredients
-1) 1 Cup of Black Coffee
-2) 1 tbsp MCT Oil
-3) 1 tbsp Hemp Hearts
-4) 1 tbsp butter
-5) 1 tbsp Collogen Peptides
+1. 1 Cup of Black Coffee
+2. 1 tbsp MCT Oil
+3. 1 tbsp Hemp Hearts
+4. 1 tbsp butter
+5. 1 tbsp Collogen Peptides
 #### Preparation
 Prep: 10 min Blend: 5 min Ready in 15 min
 1. Put all the ingredients in a blender and blend
