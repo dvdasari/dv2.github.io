@@ -3,8 +3,6 @@ layout: page
 permalink: /recipes/
 ---
 
-Test
-
 #### Beef Bone Broth
 
 #### Ingredients
