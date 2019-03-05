@@ -69,7 +69,7 @@ Best way to make hard boiled eggs.
 
 #### Preparation
 1. Rince rice under cold running water until the water runs clear
-2. Add rinced rice, water, salt and oil to the Instant Pot
+2. Add rinsed rice, water, salt and oil to the Instant Pot
 3. Put valve on Instant Pot in sealing position
 4. Set to Manual - High Pressure - 4 - 8 minutes
 5. Allow the pressure to release naturally for 10 minutes
