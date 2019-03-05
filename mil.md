@@ -30,6 +30,12 @@ Useful Sites
     - https://www.fmgnj.com/apartments/nj/joint-base-mdl/united-communities/
     - Features & Community Amenities:
       - https://www.fmgnj.com/apartments/nj/joint-base-mdl/united-communities/amenities
+  - HealthCare
+    - Humana Military - [HumanaMilitary.com](https://www.humanamilitary.com/) or call 1-800-444-5445
+    - TRICARE - [www.tricare.mil](https://tricare.mil/)
+    - milConnect - [https://milconnect.dmdc.osd.mil](https://milconnect.dmdc.osd.mil/milconnect/)
+  - Department of Defense Self-Service Logon (DS Logon)
+    - https://myaccess.dmdc.osd.mil/identitymanagement
 
 ### Apps
   - MyBaseGuide
